@@ -1,0 +1,31 @@
+"bcrypt"
+    - "bcrypt"
+
+"cookie-parser"
+    - Flask already parses cookies via request.cookies.
+    - Use make_response + response.set_cookie() to send cookies.
+    - For signing cookies: itsdangerous (comes from Flask’s ecosystem).
+
+"cors"
+    - "Flask-CORS"
+
+"https"
+    - Flask can serve HTTPS locally using: flask run --cert=cert.pem --key=key.pem
+    - In production, HTTPS is usually handled by a reverse proxy (Nginx, Apache, or AWS Load Balancer), not Flask itself.
+
+"jsonwebtoken"
+    - "PyJWT"
+
+"morgan"
+    - Flask has built-in logging via Python’s "logging" module.
+
+"mysql2"
+    - "mysql-connector-python"
+
+"nodemailer"
+    - "smtplib"
+
+"@aws-sdk/client-s3": "^3.864.0", 
+"@aws-sdk/s3-request-presigner"
+    - "boto3"
+

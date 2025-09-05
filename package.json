@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "backend-dev": "cd backend && venv\\Scripts\\activate && python -m src.server",
+        "frontend-install": "cd frontend && npm install",
+        "frontend-dev": "cd frontend && npm run dev"
+    }
+}
