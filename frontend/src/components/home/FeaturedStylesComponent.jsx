@@ -7,7 +7,7 @@ export default function FeaturedStylesComponent() {
     const [pageFeedback, setPageFeedBack] = useState({
         isLoading: false,
         message: '',
-        success: false
+        success: null
     });
 
     useEffect(() => {
@@ -83,23 +83,27 @@ export default function FeaturedStylesComponent() {
     return (
         <section id="featured-styles">
             {pageFeedback.isLoading && (
+                // Loading
                 <section className="loader">
                 </section>
             )}
 
-            {(!pageFeedback.success) && (
+            {!pageFeedback.isLoading && pageFeedback.success === false && (
+                // Error during retrieval
                 <section className="feedback fail">
-                    Error Retrieval
+                    {pageFeedback.message}
                 </section>
             )}
 
-            {(images.length <= 0) && (
-                <section className="feedback fail">
+            {!pageFeedback.isLoading && pageFeedback.success === true && images.length <= 0 && (
+                // No images
+                <section className="feedback">
                     Please add at least one image
                 </section>
             )}
 
-            {(images.length > 0) && (
+            {!pageFeedback.isLoading && pageFeedback.success && images.length > 0 && (
+                // Success Retrieval
                 <section className="featured">
                     <section className="excellence">
                         <h2>Discover Your Best Look</h2>

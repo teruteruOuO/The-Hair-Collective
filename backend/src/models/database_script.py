@@ -57,7 +57,7 @@ class DatabaseScript:
                 rows = cur.fetchall()
                 return rows
         except Error as e:
-            raise AppError(f"MySQL read error: {e}", status_code=500, frontend_message="Database read error")
+            raise
         finally:
             conn.close()
 
@@ -74,7 +74,7 @@ class DatabaseScript:
                 return {"affected": cur.rowcount, "lastrowid": cur.lastrowid}
         except Error as e:
             conn.rollback()
-            raise AppError(f"MySQL write error: {e}", status_code=500, frontend_message="Database write error")
+            raise
         finally:
             conn.close()
 
@@ -108,6 +108,6 @@ class DatabaseScript:
 
         except Error as e:
             conn.rollback()
-            raise AppError(f"MySQL transaction error: {e}", status_code=500, frontend_message="Database transaction error")
+            raise
         finally:
             conn.close()

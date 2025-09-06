@@ -1,7 +1,7 @@
 from flask import jsonify, request, current_app, g
 from src.types.types import AppError, IDecodedTokenPayload, ImageType, PageName
 from src.models.database_script import DatabaseScript
-from typing import TypedDict, List, Optional, Literal, Any, Dict, cast
+from typing import TypedDict, List, Any, Dict, cast
 from src.config.s3_bucket import PersonalS3Bucket
 
 # Store the user's slideshow image information to the database

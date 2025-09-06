@@ -8,7 +8,7 @@ export default function SlideShowComponent({ title, page_name }) {
     const [pageFeedback, setPageFeedBack] = useState({
         isLoading: false,
         message: '',
-        success: false
+        success: null
     });
 
     useEffect(() => {   
@@ -98,23 +98,27 @@ export default function SlideShowComponent({ title, page_name }) {
     return (
         <section id="slide-show">
             {pageFeedback.isLoading && (
+                // Loading
                 <section className="loader">
                 </section>
             )}
 
-            {(!pageFeedback.success) && (
+            {!pageFeedback.isLoading && pageFeedback.success === false && (
+                // Error during retrieval
                 <section className="feedback fail">
-                    Error Retrieval
+                    {pageFeedback.message}
                 </section>
             )}
 
-            {(images.length <= 0) && (
-                <section className="feedback fail">
+            {!pageFeedback.isLoading && pageFeedback.success === true && images.length <= 0 && (
+                // No images
+                <section className="feedback">
                     Please add at least one image
                 </section>
             )}
 
-            {(images.length > 0) && (
+            {!pageFeedback.isLoading && pageFeedback.success && images.length > 0 && (
+                // Success retrieval
                 <section className="image-container">
                     <h1>{title}</h1>
                     {images.map((image, index) => (

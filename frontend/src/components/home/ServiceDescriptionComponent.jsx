@@ -1,9 +1,11 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../helpers/api';
+import axios from 'axios';
 
 export default function ServiceDescriptionComponent() {
-    const [services, setServices] = useState([]);
+    const [service_types, setServiceTypes] = useState([]);
     const [pageFeedback, setPageFeedBack] = useState({
         isLoading: false,
         message: '',
@@ -11,6 +13,7 @@ export default function ServiceDescriptionComponent() {
     });
 
     useEffect(() => {
+        const controller = new AbortController();
         retrieveServices();
 
         // Retrieve image function
@@ -21,45 +24,42 @@ export default function ServiceDescriptionComponent() {
             }));
 
             try {
-                console.log('Retrieving services');
-                const serviceResponse = [
-                    {
-                        id: 1,
-                        name: "Service 1",
-                        description: "Brief description about this service is told."
-                    },
-                    {
-                        id: 2,
-                        name: "Service 2",
-                        description: "Brief description about this service is told."
-                    },
-                    {
-                        id: 3,
-                        name: "Service 3",
-                        description: "Brief description about this service is told."
-                    },
-                    {
-                        id: 4,
-                        name: "Service 4",
-                        description: "Brief description about this service is told."
-                    },
-                ]
+                const response = await api.get('/api/service/type', { signal: controller.signal });
+                console.log(response.data.message);
+                console.log("Retrieve Service Type Data Information:", response);
 
-                setServices(serviceResponse);
+                setServiceTypes(response.data.service_types);
                 setPageFeedBack(prev => ({
                     ...prev,
-                    message: "Successfully retrieved services",
+                    message: response.data.message,
                     success: true
                 }));
                 console.log("Successfully retrieved services");
 
             } catch (error) {
-                console.error(`An error occured while retrieving services`);
-                console(error);
+                // Perform when user switches to another page while frontend is still requesting for the services
+                if (axios.isCancel(error) || error.message === "canceled") {
+                    console.log("Request was canceled for service types, ignoring...");
+                    return;
+                }
+
+                console.error(`An error occured while retrieving service types`);
+                let message;
+
+                // Handle errors returned from the backend
+                if (error.response) {
+                    console.error("Backend error:", error.response);
+                    message = error.response.data.message;
+
+                // Handle unexpected errors
+                } else {
+                    console.error("Unexpected error:", error.message);
+                    message = "An unexpected error happend with the component itself. Refresh the page or try contacting the admin.";
+                }
 
                 setPageFeedBack(prev => ({
                     ...prev,
-                    message: "Error occured",
+                    message: message,
                     success: false
                 }));
 
@@ -76,30 +76,33 @@ export default function ServiceDescriptionComponent() {
     return (
         <section id="service-description">
             {pageFeedback.isLoading && (
+                // Loading
                 <section className="loader">
                 </section>
             )}
 
-            {(!pageFeedback.success) && (
+            {!pageFeedback.isLoading && pageFeedback.success === false && (
+                // Error during retrieval
                 <section className="feedback fail">
-                    Error Retrieval
+                    {pageFeedback.message}
                 </section>
             )}
 
-            {(services.length <= 0) && (
-                <section className="feedback fail">
-                    Please add at least one service
+            {!pageFeedback.isLoading && pageFeedback.success === true && service_types.length <= 0 && (
+                // No Service Types
+                <section className="feedback">
+                    No available service types
                 </section>
             )}
 
-            {(services.length > 0) && (
+            {!pageFeedback.isLoading && pageFeedback.success && service_types.length > 0 && (
                 <section className="featured">
                     <ul>
-                    {services.map(service => (
-                        <li key={service.id}>
-                            <Link to={`/about/#${service.name}`}>
-                                <span>{service.name}</span>
-                                <span>{service.description}</span>
+                    {service_types.map(service_type => (
+                        <li key={service_type.id}>
+                            <Link to={`/about/#${service_type.name}`}>
+                                <span>{service_type.name}</span>
+                                <span>{service_type.description}</span>
                             </Link>
                         </li>
                     ))}

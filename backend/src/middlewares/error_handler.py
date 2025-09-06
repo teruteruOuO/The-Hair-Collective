@@ -59,6 +59,11 @@ def register_error_handlers(app):
                 app.logger.error("Type name is too long")
                 return jsonify({"message": "Type name is too long (150 Max Characters)"}), 400
             
+            # Attribute value is too long
+            if sql_code == 1406 and "TYPE_DESC" in sql_message:
+                app.logger.error("Type description is too long")
+                return jsonify({"message": "Type description is too long (150 Max Characters)"}), 400
+            
             # ----------- Service table errors -----------
             # Invalid price format (check constraint)
             if "chk_price" in sql_message:
@@ -69,11 +74,6 @@ def register_error_handlers(app):
             if sql_code == 1406 and "SERVICE_NAME" in sql_message:
                 app.logger.error("Service name is too long")
                 return jsonify({"message": "Service name is too long (150 Max Characters)"}), 400
-            
-            # Attribute value is too long
-            if sql_code == 1406 and "SERVICE_DESC" in sql_message:
-                app.logger.error("Service description is too long")
-                return jsonify({"message": "Service description is too long (150 Max Characters)"}), 400
             
             # ----------- Location table errors -----------
             # Invalid phone format (check constraint)

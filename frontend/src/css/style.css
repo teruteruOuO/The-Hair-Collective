@@ -95,6 +95,10 @@ input {
 /* Links: End */
 
 /* Feedback: Start */
+.feedback {
+    text-align: center;
+}
+
 .feedback.fail, .feedback .fail {
     color: pink;
 }

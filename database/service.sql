@@ -3,7 +3,6 @@
 CREATE TABLE SERVICE (
 	SERVICE_ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,			-- Service identification 
     SERVICE_NAME VARCHAR(150) NOT NULL,							-- Service name
-    SERVICE_DESC VARCHAR(200),									-- Service Description
     SERVICE_PRICE DECIMAL(6, 2) NOT NULL,				    	-- Service Price
     TYPE_ID INT UNSIGNED NOT NULL,								-- Service's type
     SERVICE_DATE_ADDED TIMESTAMP DEFAULT CURRENT_TIMESTAMP,		-- Date the service was added
