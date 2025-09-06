@@ -28,9 +28,32 @@ class IDatabaseConfig(TypedDict):
 class ICookieToken(TypedDict, total=False):
     httponly: bool
     secure: bool
-    same_site: Literal["strict", "lax", "none", False] 
-    max_age: Optional[int]   
+    samesite: Literal["Strict", "Lax", "None"]  # Flask wants capitalized strings
+    max_age: Optional[int] 
 
 class ITransactionQuery(TypedDict):
     query: str
     params: Optional[List[Any]]
+
+class IDecodedTokenPayload(TypedDict):
+    id: int
+    email: str
+    iat: int
+    exp: int
+
+# S3 Types
+class IBucket(TypedDict):
+    access_key: str
+    secret_access_key: str
+    aws_region: str
+    s3_bucket: str
+
+class IBookLocations(TypedDict):
+    slideshow: str
+    featured: str
+    stylist: str
+
+
+# Variable types
+ImageType = Literal["featured", "stylist", "slideshow"]
+PageName = Literal['home', 'our-team', 'services', 'contact']

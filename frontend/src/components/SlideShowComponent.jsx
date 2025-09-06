@@ -1,9 +1,8 @@
-import red from '../assets/images/test/red.jpg'
-import yellow from '../assets/images/test/yellow.jpg'
-import green from '../assets/images/test/green.jpg'
 import { useState, useEffect } from 'react';
+import api from '../helpers/api';
+import axios from 'axios';
 
-export default function SlideShowComponent({ title }) {
+export default function SlideShowComponent({ title, page_name }) {
     const [images, setImages] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [pageFeedback, setPageFeedBack] = useState({
@@ -12,7 +11,8 @@ export default function SlideShowComponent({ title }) {
         success: false
     });
 
-    useEffect(() => {
+    useEffect(() => {   
+        const controller = new AbortController(); // Scroll down for more information
         retrieveImages();
 
         // Retrieve image function
@@ -23,37 +23,48 @@ export default function SlideShowComponent({ title }) {
             }));
 
             try {
-                console.log('Retrieving slideshow images');
-                const imageFiles = [
-                    {
-                        id: 1,
-                        source: red
-                    },
-                    {
-                        id: 2,
-                        source: yellow
-                    },
-                    {
-                        id: 3,
-                        source: green
-                    },
-                ]
+                const parameters = {
+                    page_name: page_name,
+                    image_type: "slideshow"
+                }
+                const response = await api.get('/api/slideshow', { 
+                    params: parameters,
+                    signal: controller.signal 
+                });
+                console.log(response.data.message);
+                console.log("Retrieve Slideshow Images Data Information:", response);
 
-                setImages(imageFiles);
+                setImages(response.data.images);
                 setPageFeedBack(prev => ({
                     ...prev,
-                    message: "Successfully retrieved slideshow images",
+                    message: response.data.message,
                     success: true
                 }));
-                console.log('Successfully retrieved slideshow images');
 
             } catch (error) {
+                // Perform when user switches to another page while frontend is still requesting for the images
+                if (axios.isCancel(error) || error.message === "canceled") {
+                    console.log("Request was canceled for slideshow images, ignoring...");
+                    return;
+                }
+
                 console.error(`An error occured while retrieving the slideshow images`);
-                console(error);
+                let message;
+
+                // Handle errors returned from the backend
+                if (error.response) {
+                    console.error("Backend error:", error.response);
+                    message = error.response.data.message;
+
+                // Handle unexpected errors
+                } else {
+                    console.error("Unexpected error:", error.message);
+                    message = "An unexpected error happend with the component itself. Refresh the page or try contacting the admin.";
+                }
 
                 setPageFeedBack(prev => ({
                     ...prev,
-                    message: "Error occured",
+                    message: message,
                     success: false
                 }));
 
@@ -64,6 +75,11 @@ export default function SlideShowComponent({ title }) {
                 }));
             }
         }
+
+        // Cleanup
+        return () => controller.abort(); // cleanup network request
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Slideshow logic

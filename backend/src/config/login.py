@@ -11,10 +11,12 @@ class LoginConfiguration:
     """
 
     JWT_SECRET: str = os.getenv("JWT_SECRET", "none")
+    ENCODING = "utf-8"
+    ALGORITHM = "HS256"
 
-    def __init__(self, max_age: int = 8 * 3600000):
+    def __init__(self, max_age: int = 8 * 3600):   # Flask expects seconds
         """
-        :param max_age: Token max age in milliseconds (default: 8 hours)
+        :param max_age: Token max age in seconds (default: 8 hours)
         """
         self.max_age = max_age
 
@@ -29,7 +31,7 @@ class LoginConfiguration:
             return {
                 "httponly": True,
                 "secure": True,
-                "same_site": "none",
+                "samesite": "None",
                 "max_age": self.max_age
             }
         else:
@@ -37,7 +39,7 @@ class LoginConfiguration:
             return {
                 "httponly": True,
                 "secure": False,
-                "same_site": "lax",
+                "samesite": "Lax",
                 "max_age": self.max_age
             }
     
@@ -56,4 +58,4 @@ class LoginConfiguration:
 
 
 # Make an account (App doesn't have a sign-up)
-LoginConfiguration.make_account("admin", "password")
+# LoginConfiguration.make_account("admin", "password")

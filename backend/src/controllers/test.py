@@ -40,7 +40,12 @@ def get_test_table():
             "message": "Successfully found admins",
             "admins": admins
         }), 200
+    
+        
 
     except Exception as err:
-        # Raise a custom error to be caught by your error handler
-        raise AppError(str(err), status_code=500, frontend_message="Something went wrong")
+        raise AppError(
+            str(err), 
+            status_code=500, 
+            frontend_message="Something went wrong"
+        )

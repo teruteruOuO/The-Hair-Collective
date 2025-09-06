@@ -5,7 +5,7 @@ import mysql.connector
 def register_error_handlers(app):
     @app.errorhandler(AppError)
     def handle_app_error(error: AppError):
-        print("Found an application error")
+        print("Caught a known application error")
         app.logger.error({"err": str(error)}, exc_info=True)
         return jsonify(
             {
