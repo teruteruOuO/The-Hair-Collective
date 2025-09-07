@@ -1,50 +1,46 @@
-
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import api from '../../helpers/api';
+import api from '../../helpers/api'
 import axios from 'axios';
-import { HashLink } from 'react-router-hash-link';
 
-export default function ServiceDescriptionComponent() {
-    const [service_types, setServiceTypes] = useState([]);
+export default function ServiceListComponent() {
+    const [services, setServices] = useState([]);
     const [pageFeedback, setPageFeedBack] = useState({
         isLoading: false,
         message: '',
-        success: false
+        success: null
     });
 
-    useEffect(() => {
-        const controller = new AbortController();
-        retrieveServices();
+    useEffect(() => {   
+        const controller = new AbortController(); // Scroll down for more information
+        retrieveImages();
 
         // Retrieve image function
-        async function retrieveServices() {
+        async function retrieveImages() {
             setPageFeedBack(prev => ({
                 ...prev,
                 isLoading: true
             }));
 
             try {
-                const response = await api.get('/api/service/type', { signal: controller.signal });
+                const response = await api.get('/api/service', { signal: controller.signal });
                 console.log(response.data.message);
-                console.log("Retrieve Service Type Data Information:", response);
+                console.log("Retrieve Service Data Information:", response);
 
-                setServiceTypes(response.data.service_types);
+                setServices(response.data.service_list);
                 setPageFeedBack(prev => ({
                     ...prev,
                     message: response.data.message,
                     success: true
                 }));
-                console.log("Successfully retrieved services");
 
             } catch (error) {
                 // Perform when user switches to another page while frontend is still requesting for the services
                 if (axios.isCancel(error) || error.message === "canceled") {
-                    console.log("Request was canceled for service types, ignoring...");
+                    console.log("Request was canceled for services, ignoring...");
                     return;
                 }
 
-                console.error(`An error occured while retrieving service types`);
+                console.error(`An error occured while retrieving the service list`);
                 let message;
 
                 // Handle errors returned from the backend
@@ -73,12 +69,12 @@ export default function ServiceDescriptionComponent() {
         }
 
         // Cleanup
-        return () => controller.abort(); 
+        return () => controller.abort();
+
     }, []);
 
-
     return (
-        <section id="service-description">
+        <section id="service-list">
             {pageFeedback.isLoading && (
                 // Loading
                 <section className="loader">
@@ -92,25 +88,31 @@ export default function ServiceDescriptionComponent() {
                 </section>
             )}
 
-            {!pageFeedback.isLoading && pageFeedback.success === true && service_types.length <= 0 && (
-                // No Service Types
+            {!pageFeedback.isLoading && pageFeedback.success === true && services.length <= 0 && (
+                // No services
                 <section className="feedback">
-                    No available service types
+                    Please add at least one service and service type
                 </section>
             )}
 
-            {!pageFeedback.isLoading && pageFeedback.success && service_types.length > 0 && (
-                <section className="featured">
-                    <ul>
-                    {service_types.map(service_type => (
-                        <li key={service_type.id}>
-                            <HashLink to={`/services#${service_type.name.replace(/\s+/g, "-").toLowerCase()}`}>
-                                <span>{service_type.name}</span>
-                                <span>{service_type.description}</span>
-                            </HashLink>
-                        </li>
+            {!pageFeedback.isLoading && pageFeedback.success && services.length > 0 && (
+                // Success retrieval
+                <section className="service">
+                    {services.map(service_type => (
+                    <section className="service-type" id={service_type.name.replace(/\s+/g, "-").toLowerCase()} key={service_type.id}>
+                        <h2>{service_type.name}</h2>
+                        <p>({service_type.description})</p>
+                        <ul>
+                            {service_type.services.map((service, index) => (
+                                <li key={service.id}>
+                                    <span>{index + 1}. {service.name}</span>
+                                    <span className="dots"></span>  
+                                    <span>${service.price}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
                     ))}
-                    </ul>
                 </section>
             )}  
         </section>

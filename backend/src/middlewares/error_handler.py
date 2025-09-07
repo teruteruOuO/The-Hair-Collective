@@ -64,6 +64,11 @@ def register_error_handlers(app):
                 app.logger.error("Type description is too long")
                 return jsonify({"message": "Type description is too long (150 Max Characters)"}), 400
             
+            # Can't delete a TYPE when it has CHILDREN
+            if sql_code == 1451 and (("Cannot delete or update a parent row") or ("CONSTRAINT `service_ibfk_2` FOREIGN KEY (`TYPE_ID`) REFERENCES `type` (`TYPE_ID`) ON UPDATE CASCADE") in sql_message):
+                app.logger.error("Cannot delete a SERVICE TYPE that has CHILDREN")
+                return jsonify({"message": "You must remove all services that point to this service type first"}), 400
+            
             # ----------- Service table errors -----------
             # Invalid price format (check constraint)
             if "chk_price" in sql_message:

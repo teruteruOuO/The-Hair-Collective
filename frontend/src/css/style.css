@@ -564,6 +564,71 @@ main#home > *:last-of-type {
 ##############################################
 ##############################################
 ######                                  ######
+######          Services Page           ######
+######                                  ######
+##############################################
+##############################################
+*/
+#service-list {
+    margin-block: 20px;
+    padding-inline: 20px;
+}
+
+#service-list .service {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#service-list .service .service-type h2 {
+    font-size: 2rem;
+    margin-block-end: 5px;
+}
+
+#service-list .service .service-type p {
+    margin-block-end: 5px;
+    word-spacing: 0.2rem;
+}
+
+#service-list .service .service-type p::before {
+    content: "->"
+}
+
+#service-list .service .service-type ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-block-start: 10px;
+}
+
+#service-list .service .service-type ul li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+}
+
+#service-list .service .service-type ul li span {
+    font-size: 1.1rem;
+    font-weight: 150;
+}
+
+#service-list .service .service-type ul li .dots {
+    flex: 1; /* takes up the space between name and price */
+    border-bottom: 1px dashed #fff;
+    margin: 0 10px;
+}
+
+#service-list .service .service-type ul li span:last-of-type {
+    margin-inline-start: auto;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######          Media Queries           ######
 ######                                  ######
 ##############################################
@@ -632,6 +697,26 @@ main#home > *:last-of-type {
     #service-description .featured ul li a {
         inline-size: 300px;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######          Services Page           ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+
+    #service-list {
+        margin-block: 40px;
+        padding-inline: 30px;
+    }
+
+    #service-list .service .service-type ul li span {
+        font-size: 1.3rem;
+    }
+
 }
 
 /* ≥ 768px — Tablet Vertical */
@@ -799,6 +884,25 @@ main#home > *:last-of-type {
     #service-description .featured ul li a {
         inline-size: 400px;
     }
+
+        /*
+        ##############################################
+        ##############################################
+        ######                                  ######
+        ######          Services Page           ######
+        ######                                  ######
+        ##############################################
+        ##############################################
+        */
+
+        #service-list {
+            margin-block: 60px;
+            padding-inline: 50px;
+        }
+
+        #service-list .service .service-type ul li span {
+            font-size: 1.5rem;
+        }
 }
 
 /* ≥ 1920px — Desktop (Full HD and up) */
@@ -825,5 +929,20 @@ main#home > *:last-of-type {
     #featured-styles .featured .images > img {
         inline-size: 270px;
         block-size: 270px;
-    }   
+    }
+    
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######          Services Page           ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+
+    #service-list {
+        margin-block: 60px;
+        padding-inline: 200px;
+    }
 }

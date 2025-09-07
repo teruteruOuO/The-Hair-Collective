@@ -66,7 +66,7 @@ export default function HeaderComponent() {
                         <ul>
                             <li><Link to="/" onClick={() => setOpenMenu(false)}>Home</Link></li>
                             <li><Link to="/about" onClick={() => setOpenMenu(false)}>Our Team</Link></li>
-                            <li><Link to="/about" onClick={() => setOpenMenu(false)}>Services</Link></li>
+                            <li><Link to="/services" onClick={() => setOpenMenu(false)}>Services</Link></li>
                             <li><Link to="/about" onClick={() => setOpenMenu(false)}>Contact</Link></li>
                             <li><Link to="/about" onClick={() => setOpenMenu(false)}>Panel</Link></li>
                         </ul>
@@ -91,7 +91,7 @@ export default function HeaderComponent() {
                     <ul>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/about">Our Team</Link></li>
-                        <li><Link to="/about">Services</Link></li>
+                        <li><Link to="/services">Services</Link></li>
                         <li><Link to="/about">Contact</Link></li>
                         <li><Link to="/about">Panel</Link></li>
                     </ul>
