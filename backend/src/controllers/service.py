@@ -236,7 +236,7 @@ def update_service():
         current_app.logger.debug(f"Checking if {admin_information['email']} submitted the service's id, name, price, and type...")
         if (not service["name"]) or (not service["price"]) or (not service["type_id"]):
             raise AppError(
-                message=f"{admin_information['email']} did not provide the seevice's id, name, price, or type",
+                message=f"{admin_information['email']} did not provide the service's id, name, price, or type",
                 frontend_message="Please provide the service's id, name, price, and service type",
                 status_code=400
             )
@@ -245,9 +245,9 @@ def update_service():
         # Neutralize strings
         service["name"] = neutralize_string(service["name"])
 
-        # Add the service to the database
+        # Update the service to the database
         current_app.logger.debug(f"Update service {service['name']} to the database...")
-        update_query = "UPDATE SERVICE SET SERVICE_NAME = %s, SERVICE_PRICE = %s, TYPE_ID = %s WHERE SERVICE_ID = %s"
+        update_query = "UPDATE SERVICE SET SERVICE_NAME = %s, SERVICE_PRICE = %s, TYPE_ID = %s WHERE SERVICE_ID = %s;"
         result_query = DatabaseScript.execute_write_query(update_query, [service["name"], service["price"], service["type_id"], service["id"]])
         current_app.logger.debug(f"Successfully updated service {service['name']} to the database!")
 

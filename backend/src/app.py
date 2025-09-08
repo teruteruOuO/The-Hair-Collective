@@ -11,6 +11,7 @@ from src.routes.authentication import authentication_bp
 from src.routes.generate_url import generate_url_bp
 from src.routes.slideshow import slideshow_bp
 from src.routes.service import service_bp
+from src.routes.stylist import stylist_bp
 
 app = Flask(__name__)
 
@@ -40,6 +41,7 @@ app.register_blueprint(authentication_bp, url_prefix="/api/authentication")
 app.register_blueprint(generate_url_bp, url_prefix="/api/generate_url")
 app.register_blueprint(slideshow_bp, url_prefix="/api/slideshow")
 app.register_blueprint(service_bp, url_prefix="/api/service")
+app.register_blueprint(stylist_bp, url_prefix="/api/stylist")
 
 # Add this for some reason
 @app.route("/favicon.ico")

@@ -3,7 +3,7 @@ import { lazy } from "react";
 import App from "./App.jsx";
 
 const Home = lazy(() => import("./pages/HomePage.jsx")); 
-const About = lazy(() => import("./pages/AboutPage.jsx"));   
+const OurTeam = lazy(() => import("./pages/OurTeamPage.jsx"));   
 const Services = lazy(() => import("./pages/ServicesPage.jsx"));   
 
 export const router = createBrowserRouter([
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         element: <App />,        // layout
         children: [
             { index: true, element: <Home /> },      // "/"
-            { path: "about", element: <About /> },   // "/about"
+            { path: "our-team", element: <OurTeam /> },   // "/about"
             { path: "services", element: <Services /> },   // "/services"
         ],
     },

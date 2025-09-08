@@ -55,3 +55,35 @@ def generate_signed_upload_url():
     except Exception as err:
         raise 
 
+# Generate a delete url for the image
+def generate_signed_delete_url():
+    try:
+        jsonData = request.get_json()
+        image_location: str = jsonData.get("image_location")
+        admin_information: IDecodedTokenPayload = g.user
+        image_delete_url: str
+
+        current_app.logger.debug("Processing generate_signed_delete_url...")
+
+        # Ensure image location is provided
+        if not image_location:
+            raise AppError(
+                message=f"{admin_information['email']} did not provide the current image's location",
+                frontend_message="Please provide the image's location",
+                status_code=400
+            )
+
+        # Generate a delete URL for the image's location
+        current_app.logger.debug(f"Generating an S3 delete url for {admin_information['email']}'s image ({image_location})")
+        image_delete_url = PersonalS3Bucket.generate_delete_url(image_location)
+        current_app.logger.debug(f"Successfully generated an S3 delete url for {admin_information['email']}'s image ({image_location})")
+
+        return jsonify({
+            "message": f"Successfully generated a delete url for the image ({image_location})",
+            "image_delete_url": image_delete_url
+        }), 201
+
+    except Exception as err:
+        raise 
+
+

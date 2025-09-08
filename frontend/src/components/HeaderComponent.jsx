@@ -65,10 +65,10 @@ export default function HeaderComponent() {
                     <nav>
                         <ul>
                             <li><Link to="/" onClick={() => setOpenMenu(false)}>Home</Link></li>
-                            <li><Link to="/about" onClick={() => setOpenMenu(false)}>Our Team</Link></li>
+                            <li><Link to="/our-team" onClick={() => setOpenMenu(false)}>Our Team</Link></li>
                             <li><Link to="/services" onClick={() => setOpenMenu(false)}>Services</Link></li>
-                            <li><Link to="/about" onClick={() => setOpenMenu(false)}>Contact</Link></li>
-                            <li><Link to="/about" onClick={() => setOpenMenu(false)}>Panel</Link></li>
+                            <li><Link to="/our-team" onClick={() => setOpenMenu(false)}>Contact</Link></li>
+                            <li><Link to="/our-team" onClick={() => setOpenMenu(false)}>Panel</Link></li>
                         </ul>
                     </nav>
                 </div>
@@ -90,10 +90,10 @@ export default function HeaderComponent() {
                 {!isPhone && (
                     <ul>
                         <li><Link to="/">Home</Link></li>
-                        <li><Link to="/about">Our Team</Link></li>
+                        <li><Link to="/our-team">Our Team</Link></li>
                         <li><Link to="/services">Services</Link></li>
-                        <li><Link to="/about">Contact</Link></li>
-                        <li><Link to="/about">Panel</Link></li>
+                        <li><Link to="/our-team">Contact</Link></li>
+                        <li><Link to="/our-team">Panel</Link></li>
                     </ul>
                 )}  
             </nav>

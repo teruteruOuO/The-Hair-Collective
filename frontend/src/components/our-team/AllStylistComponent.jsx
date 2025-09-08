@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import api from '../../helpers/api'
 import axios from 'axios';
 
-export default function ServiceListComponent() {
-    const [services, setServices] = useState([]);
+export default function AllStylistComponent() {
+    const [stylists, setStylists] = useState([]);
     const [pageFeedback, setPageFeedBack] = useState({
         isLoading: false,
         message: '',
@@ -11,22 +11,22 @@ export default function ServiceListComponent() {
     });
 
     useEffect(() => {   
-        const controller = new AbortController(); // Scroll down for more information
-        retrieveImages();
+        const controller = new AbortController(); 
+        retrieveStylists();
 
         // Retrieve image function
-        async function retrieveImages() {
+        async function retrieveStylists() {
             setPageFeedBack(prev => ({
                 ...prev,
                 isLoading: true
             }));
 
             try {
-                const response = await api.get('/api/service', { signal: controller.signal });
+                const response = await api.get('/api/stylist', { signal: controller.signal });
                 console.log(response.data.message);
-                console.log("Retrieve Service Data Information:", response);
+                console.log("Retrieve Stylist Data Information:", response);
 
-                setServices(response.data.service_list);
+                setStylists(response.data.stylists);
                 setPageFeedBack(prev => ({
                     ...prev,
                     message: response.data.message,
@@ -34,13 +34,13 @@ export default function ServiceListComponent() {
                 }));
 
             } catch (error) {
-                // Perform when user switches to another page while frontend is still requesting for the services
+                // Perform when user switches to another page while frontend is still requesting for the stylists
                 if (axios.isCancel(error) || error.message === "canceled") {
-                    console.log("Request was canceled for services, ignoring...");
+                    console.log("Request was canceled for stylists, ignoring...");
                     return;
                 }
 
-                console.error(`An error occured while retrieving the service list`);
+                console.error(`An error occured while retrieving the stylists`);
                 let message;
 
                 // Handle errors returned from the backend
@@ -74,7 +74,7 @@ export default function ServiceListComponent() {
     }, []);
 
     return (
-        <section id="service-list">
+        <section id="all-stylist">
             {pageFeedback.isLoading && (
                 // Loading
                 <section className="loader">
@@ -88,31 +88,24 @@ export default function ServiceListComponent() {
                 </section>
             )}
 
-            {!pageFeedback.isLoading && pageFeedback.success === true && services.length <= 0 && (
-                // No services
+            {!pageFeedback.isLoading && pageFeedback.success === true && stylists.length <= 0 && (
+                // No stylists
                 <section className="feedback">
-                    Please add at least one service and service type
+                    No Stylist
                 </section>
             )}
 
-            {!pageFeedback.isLoading && pageFeedback.success && services.length > 0 && (
+            {!pageFeedback.isLoading && pageFeedback.success && stylists.length > 0 && (
                 // Success retrieval
-                <section className="service">
-                    {services.map(service_type => (
-                    <section className="service-type" key={service_type.id}>
-                        <h2 id={service_type.name.replace(/\s+/g, "-").toLowerCase()}>{service_type.name}</h2>
-                        <p>({service_type.description})</p>
-                        <ul>
-                            {service_type.services.map((service, index) => (
-                                <li key={service.id}>
-                                    <span>{index + 1}. {service.name}</span>
-                                    <span className="dots"></span>  
-                                    <span>${service.price}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-                    ))}
+                <section className="stylists-information">
+                    <ul>
+                        {stylists.map(stylist => (
+                            <li key={stylist.id}>
+                                <img src={stylist.source} alt={`${stylist.first} ${stylist.last}`} />
+                                <p>{stylist.first}</p>
+                            </li>
+                        ))}
+                    </ul>
                 </section>
             )}  
         </section>
