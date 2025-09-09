@@ -677,6 +677,61 @@ main#home > *:last-of-type {
 ##############################################
 ##############################################
 ######                                  ######
+######            Contact               ######
+######                                  ######
+##############################################
+##############################################
+*/
+#location-list {
+    margin-block: 30px;
+}
+
+#location-list .location {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    margin-inline: 10px;
+    text-align: center;
+}
+
+#location-list .location h2,
+#location-list .location .address,
+#location-list .location .phone {
+    margin-block-end: 5px;
+}
+
+#location-list .location .phone {
+    color: orange;
+    font-size: 1.5rem;
+}
+
+#location-list .location .map {
+    inline-size: 300px;
+    block-size: 300px;
+    border-radius: 15px;
+    border: 2px solid #FFD200;
+    margin-block-start: auto;
+}
+
+#location-list .location .opening-hours {
+    border-block-start-style: dashed;
+    border-block-start-width: 2px;
+    margin-block-start: 15px;
+}
+
+#location-list .location .opening-hours h3 {
+    font-size: 1.1rem;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######          Media Queries           ######
 ######                                  ######
 ##############################################
@@ -788,6 +843,20 @@ main#home > *:last-of-type {
         block-size: 100px;
         font-size: 1.2rem;
         padding-block-start: 30px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######            Contact               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #location-list .location .map {
+        inline-size: 500px;
+        block-size: 500px;
     }
 
 }
@@ -920,6 +989,24 @@ main#home > *:last-of-type {
         font-size: 1.3rem;
         padding-block-start: 30px;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######            Contact               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #location-list .location {
+        flex-direction: row;
+    }
+
+    #location-list .location .map {
+        inline-size: 300px;
+        block-size: 400px;
+    }
 }
 
 /* ≥ 1024px — Tablet Horizontal (also small laptops) */
@@ -1045,6 +1132,32 @@ main#home > *:last-of-type {
         font-size: 1.3rem;
         padding-block-start: 30px;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######            Contact               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #location-list .location h2 {
+        font-size: 2rem;
+    }
+        
+    #location-list .location {
+        flex-direction: row;
+    }
+
+    #location-list .location > * {
+        inline-size: 450px;
+    }
+
+    #location-list .location .map {
+        inline-size: 350px;
+        block-size: 435px;
+    }
 }
 
 /* ≥ 1920px — Desktop (Full HD and up) */
@@ -1082,9 +1195,27 @@ main#home > *:last-of-type {
     ##############################################
     ##############################################
     */
-
     #service-list {
         margin-block: 60px;
         padding-inline: 200px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######            Contact               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+
+    #location-list .location > * {
+        inline-size: 600px;
+    }
+
+    #location-list .location .map {
+        inline-size: 400px;
+        block-size: 500px;
     }
 }

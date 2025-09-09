@@ -83,13 +83,43 @@ def register_error_handlers(app):
             # ----------- Location table errors -----------
             # Invalid phone format (check constraint)
             if "chk_phone_format" in sql_message:
-                app.logger.error("Phone format must be ###-###-####")
-                return jsonify({"message": "Phone format must be ###-###-####"}), 400
+                app.logger.error("Phone format must be ##########")
+                return jsonify({"message": "Phone format must be all numerical"}), 400
+            
+            # Invalid state format (check constraint)
+            if "chk_state_valid" in sql_message:
+                app.logger.error("Must be a valid state abbreviation")
+                return jsonify({"message": "Must be a valid state abbreviation"}), 400
+            
+            # Invalid zip format (check constraint)
+            if "chk_zip_format" in sql_message:
+                app.logger.error("Must be a valid zip format")
+                return jsonify({"message": "Zip must be 5 characters and numerical"}), 400
 
             # Attribute value is too long
             if sql_code == 1406 and "LOCATION_NAME" in sql_message:
                 app.logger.error("Location name is too long")
                 return jsonify({"message": "Location name is too long (150 Max Characters)"}), 400
+            
+            # Attribute value is too long
+            if sql_code == 1406 and "LOCATION_CITY" in sql_message:
+                app.logger.error("Location city is too long")
+                return jsonify({"message": "Location city is too long (150 Max Characters)"}), 400
+            
+            # Attribute value is too long
+            if sql_code == 1406 and "LOCATION_STATE" in sql_message:
+                app.logger.error("Location state is too long")
+                return jsonify({"message": "Location state is too long (2 Max Characters)"}), 400
+            
+            # Attribute value is too long
+            if sql_code == 1406 and "LOCATION_ZIP" in sql_message:
+                app.logger.error("Location zip is not valid")
+                return jsonify({"message": "Location zip is not valid (Must be 5 characters)"}), 400
+            
+            # Attribute value is too long
+            if sql_code == 1406 and "LOCATION_PHONE" in sql_message:
+                app.logger.error("Location phone is not valid")
+                return jsonify({"message": "Location phone is not valid (Must be 10 characters)"}), 400
             
              # ----------- Opening hour table errors -----------
             # Invalid opening day format (check constraint)

@@ -1,5 +1,5 @@
 from flask import jsonify, request, current_app, g
-from src.types.types import AppError, IDecodedTokenPayload, ImageType
+from src.types.types import AppError, IDecodedTokenPayload
 from src.models.database_script import DatabaseScript
 from typing import Any, List, Any, Dict, cast, TypedDict
 from src.config.s3_bucket import PersonalS3Bucket
@@ -83,8 +83,8 @@ def update_stylist():
 
         # Update the stylist information in the database
         current_app.logger.debug(f"Update stylist #{stylist['id']} in the database...")
-        update_query = "UPDATE STYLIST SET STYLIST_FIRST_NAME = %s, STYLIST_LAST_NAME = %s, STYLIST_PROFILE_IMG = %s WHERE STYLIST_ID = %s;"
-        result_query = DatabaseScript.execute_write_query(update_query, [stylist["first"], stylist["last"], stylist["image_location"], stylist["id"]])
+        update_query = "UPDATE STYLIST SET STYLIST_FIRST_NAME = %s, STYLIST_LAST_NAME = %s, STYLIST_PROFILE_IMG = %s, ADMIN_ID = %s WHERE STYLIST_ID = %s;"
+        result_query = DatabaseScript.execute_write_query(update_query, [stylist["first"], stylist["last"], stylist["image_location"], admin_information['id'], stylist["id"]])
         current_app.logger.debug(f"Successfully updated stylist #{stylist['id']} in the database!")
 
         return jsonify({

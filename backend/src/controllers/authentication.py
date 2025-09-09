@@ -2,7 +2,7 @@ from flask import jsonify, request, current_app, make_response
 from datetime import datetime, timedelta, timezone
 from src.types.types import AppError, ICookieToken, IDecodedTokenPayload
 from src.models.database_script import DatabaseScript
-from typing import TypedDict, List, Optional, Literal, Any
+from typing import TypedDict, List, Any
 from src.config.login import LoginConfiguration
 import bcrypt
 import jwt
@@ -94,7 +94,7 @@ def login_user():
             jsonify(
                     {
                         "message": "Login success", 
-                        "logged_in": True
+                        "logged_in": bool(True)
                     }
                 )
             )

@@ -247,8 +247,8 @@ def update_service():
 
         # Update the service to the database
         current_app.logger.debug(f"Update service {service['name']} to the database...")
-        update_query = "UPDATE SERVICE SET SERVICE_NAME = %s, SERVICE_PRICE = %s, TYPE_ID = %s WHERE SERVICE_ID = %s;"
-        result_query = DatabaseScript.execute_write_query(update_query, [service["name"], service["price"], service["type_id"], service["id"]])
+        update_query = "UPDATE SERVICE SET SERVICE_NAME = %s, SERVICE_PRICE = %s, TYPE_ID = %s, ADMIN_ID = %s WHERE SERVICE_ID = %s;"
+        result_query = DatabaseScript.execute_write_query(update_query, [service["name"], service["price"], service["type_id"], admin_information['id'], service["id"]])
         current_app.logger.debug(f"Successfully updated service {service['name']} to the database!")
 
         return jsonify({
@@ -269,7 +269,7 @@ def delete_service():
 
         current_app.logger.debug("Processing delete_service...")
 
-        # Ensure type name and description exists
+        # Ensure service id exists
         current_app.logger.debug(f"Checking if {admin_information['email']} submitted the service's id...")
         if not service_id:
             raise AppError(
@@ -277,7 +277,7 @@ def delete_service():
                 frontend_message="Please provide the service's ID",
                 status_code=400
             )
-        current_app.logger.debug(f"{admin_information['email']} provided the type id!")
+        current_app.logger.debug(f"{admin_information['email']} provided the service's id!")
 
         # Delete the service from the database
         current_app.logger.debug(f"Deleting the service #{service_id} from the database...")
