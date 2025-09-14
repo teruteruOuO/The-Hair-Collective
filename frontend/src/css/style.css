@@ -2,6 +2,36 @@
 ##############################################
 ##############################################
 ######                                  ######
+######    Animations for Components     ######
+######                                  ######
+##############################################
+##############################################
+*/
+
+/* Fade-in utility */
+.fade-in-from-right {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.fade-in-from-left {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######            General               ######
 ######                                  ######
 ##############################################
@@ -62,21 +92,21 @@ table tr:last-child td:last-child {
 
 /* Button: Start */
 button {
-    background-color:  #4b607f;
-    color:  tomato;
+    background-color: #FFD200;
+    color: #001832;
     min-inline-size: 100px;
     border-radius: 5px;
+    border: 1px solid black;
 }
 
 button:hover, button:active {
-    background-color: #5d78a0;
-    border: 1px solid #ff9553;
+    background-color: #fdea94;
+    color: #13559b;
 }
 
 button:disabled {
-    background-color: #324055;
-    color: rgb(189, 189, 189);
-    border-color: #cc5104;
+    background-color: #9b7f02;
+    color: #101d2b;
 }
 /* Button: End */
 
@@ -107,6 +137,46 @@ input {
     color: green;
 }
 /* Feedback: End */
+
+/* Loader: Start */
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite;
+    margin: 50px auto;   /* center horizontally */
+}
+
+.loader::before , .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    animation: prixClipFix 2s linear infinite ;
+}
+
+.loader::after{
+    border-color: #FF3D00;
+    animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
+    inset: 6px;
+}
+
+@keyframes rotate {
+    0%   {transform: rotate(0deg)}
+    100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+/* Loader: End */
 
 .component {
     border: 1px solid black;
@@ -732,6 +802,76 @@ main#home > *:last-of-type {
 ##############################################
 ##############################################
 ######                                  ######
+######          Not Found Page          ######
+######                                  ######
+##############################################
+##############################################
+*/
+main#not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-block-size: 500px;
+}
+
+main#not-found > p {
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
+######              Login               ######
+######                                  ######
+##############################################
+##############################################
+*/
+#login-admin {
+    block-size: 500px;
+
+    /* As Flex Parent: Center the form */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#login-admin ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#login-admin ul > li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-admin ul > li label {
+    min-inline-size: 100px; 
+    text-align: right;       
+    margin-inline-end: 10px;
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+
+#login-admin ul > li button {
+    inline-size: 200px;
+    block-size: 40px;
+    font-size: 1.2rem;
+}
+
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######          Media Queries           ######
 ######                                  ######
 ##############################################
@@ -859,6 +999,18 @@ main#home > *:last-of-type {
         block-size: 500px;
     }
 
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######              Login               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #login-admin {
+        block-size: 200px;
+    }
 }
 
 /* ≥ 768px — Tablet Vertical */
@@ -1006,6 +1158,34 @@ main#home > *:last-of-type {
     #location-list .location .map {
         inline-size: 300px;
         block-size: 400px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######              Login               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #login-admin {
+        block-size: 700px;
+    }
+
+    #login-admin ul > li label {
+        min-inline-size: 200px; 
+        margin-inline-end: 20px;
+        font-size: 1.4rem;
+    }
+
+    #login-admin ul > li input {
+        inline-size: 300px;
+    }
+
+    #login-admin ul > li button {
+        inline-size: 300px;
+        font-size: 1.4rem;
     }
 }
 
@@ -1157,6 +1337,35 @@ main#home > *:last-of-type {
     #location-list .location .map {
         inline-size: 350px;
         block-size: 435px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######              Login               ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #login-admin {
+        block-size: 700px;
+    }
+
+    #login-admin ul > li label {
+        min-inline-size: 200px; 
+        margin-inline-end: 20px;
+        font-size: 1.5rem;
+    }
+
+    #login-admin ul > li input {
+        inline-size: 300px;
+        block-size: 40px;
+    }
+
+    #login-admin ul > li button {
+        inline-size: 300px;
+        font-size: 1.5rem;
     }
 }
 

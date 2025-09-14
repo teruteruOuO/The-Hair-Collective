@@ -97,7 +97,7 @@ export default function LocationsComponent() {
 
             {!pageFeedback.isLoading && pageFeedback.success && locations.length > 0 && (
                 // Success retrieval
-                <section className="location">
+                <section className="location fade-in-from-left">
                     {locations.map(location => (
                     <section id={location.name.replace(/\s+/g, "-").toLowerCase()} key={location.id}>
                         <h2>The Hair Collective | {location.name}</h2>
@@ -106,7 +106,7 @@ export default function LocationsComponent() {
 
                         <iframe className='map'
                         src={`https://www.google.com/maps/?q=${encodeURIComponent(`${location.address}, ${location.city}, ${location.state} ${location.zip}`)}&output=embed`} 
-                        frameborder="0"
+                        frameBorder="0"
                         allowFullScreen=""
                         >
                         </iframe>

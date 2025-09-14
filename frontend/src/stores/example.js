@@ -21,7 +21,7 @@ export const useUserStore = create(
         }),
         
         {
-            name: 'user', // storage key
+            name: 'example', // storage key
             storage: createJSONStorage(() => localStorage), // or sessionStorage
 
             // persist only what you need:

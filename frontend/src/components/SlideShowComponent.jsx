@@ -119,7 +119,7 @@ export default function SlideShowComponent({ title, page_name }) {
 
             {!pageFeedback.isLoading && pageFeedback.success && images.length > 0 && (
                 // Success retrieval
-                <section className="image-container">
+                <section className="image-container fade-in-from-right">
                     <h1>{title}</h1>
                     {images.map((image, index) => (
                         <img

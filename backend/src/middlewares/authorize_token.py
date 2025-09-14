@@ -22,7 +22,7 @@ def authorize_token(f):
             decoded_token = jwt.decode(
                 token, 
                 LoginConfiguration.JWT_SECRET, 
-                algorithms=["HS256"]
+                algorithms=[LoginConfiguration.ALGORITHM]
             )
             # Store user info in Flask's global context (you can't do req.user like in ExpressJS)
             # You must use g.user each time you want to take the token's decoded information in this case

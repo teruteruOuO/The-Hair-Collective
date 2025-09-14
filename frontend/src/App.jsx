@@ -7,11 +7,10 @@ export default function App() {
     return (
         <>
             <HeaderComponent />
-            <Suspense fallback={<p>Loading…</p>}>
+            <Suspense fallback={<section className="loader"></section>}>
                 <Outlet />
             </Suspense>
             <FooterComponent />
         </>
-
     );
 }

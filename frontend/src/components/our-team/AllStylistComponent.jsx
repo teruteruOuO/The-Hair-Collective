@@ -97,7 +97,7 @@ export default function AllStylistComponent() {
 
             {!pageFeedback.isLoading && pageFeedback.success && stylists.length > 0 && (
                 // Success retrieval
-                <section className="stylists-information">
+                <section className="stylists-information fade-in-from-left">
                     <ul>
                         {stylists.map(stylist => (
                             <li key={stylist.id}>

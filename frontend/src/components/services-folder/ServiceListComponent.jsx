@@ -97,7 +97,7 @@ export default function ServiceListComponent() {
 
             {!pageFeedback.isLoading && pageFeedback.success && services.length > 0 && (
                 // Success retrieval
-                <section className="service">
+                <section className="service fade-in-from-left">
                     {services.map(service_type => (
                     <section className="service-type" key={service_type.id}>
                         <h2 id={service_type.name.replace(/\s+/g, "-").toLowerCase()}>{service_type.name}</h2>

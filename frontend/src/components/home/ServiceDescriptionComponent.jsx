@@ -100,7 +100,7 @@ export default function ServiceDescriptionComponent() {
             )}
 
             {!pageFeedback.isLoading && pageFeedback.success && service_types.length > 0 && (
-                <section className="featured">
+                <section className="featured fade-in-from-right">
                     <ul>
                     {service_types.map(service_type => (
                         <li key={service_type.id}>

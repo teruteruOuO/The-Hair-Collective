@@ -104,7 +104,7 @@ export default function FeaturedStylesComponent() {
 
             {!pageFeedback.isLoading && pageFeedback.success && images.length > 0 && (
                 // Success Retrieval
-                <section className="featured">
+                <section className="featured fade-in-from-left">
                     <section className="excellence">
                         <h2>Discover Your Best Look</h2>
                         <p>

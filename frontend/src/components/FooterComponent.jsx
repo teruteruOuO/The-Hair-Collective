@@ -5,7 +5,7 @@ import tiktok from "../assets/images/tiktok.png";
 
 export default function FooterComponent() {
     return (
-        <footer>
+        <footer className="fade-in-from-right">
             <h1>The Hair Collective</h1>
             <section className="links">
                 <img src={logo} alt="THC Logo" />
