@@ -13,6 +13,7 @@ from src.routes.slideshow import slideshow_bp
 from src.routes.service import service_bp
 from src.routes.stylist import stylist_bp
 from src.routes.location import location_bp
+from src.routes.review import review_bp
 
 app = Flask(__name__)
 
@@ -44,6 +45,7 @@ app.register_blueprint(slideshow_bp, url_prefix="/api/slideshow")
 app.register_blueprint(service_bp, url_prefix="/api/service")
 app.register_blueprint(stylist_bp, url_prefix="/api/stylist")
 app.register_blueprint(location_bp, url_prefix="/api/location")
+app.register_blueprint(review_bp, url_prefix="/api/review")
 
 # Add this for some reason
 @app.route("/favicon.ico")

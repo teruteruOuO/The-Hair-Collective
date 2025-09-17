@@ -112,12 +112,29 @@ button:disabled {
 
 /* Input: Start */
 input {
-    color: #181414;
-    background-color: #e8d8c9;
-    min-inline-size: 150px;
+    color: #001832;
+    background-color: #FFD200;
+    inline-size: 150px;
     border-radius: 5px;
-    border: 1px solid #4b607f;
+    border: 1px solid black;
     padding-inline: 10px;
+}
+
+input:disabled {
+    background-color: #aa8b00;
+    color: #000c18;
+}
+
+textarea {
+    display: block;
+    background-color: #FFD200;
+    color: #001832;
+    border-radius: 10px;
+    border: 2px solid white;
+    padding: 20px;
+    resize: vertical;
+    overflow-y: auto;
+    min-inline-size: 50px;
 }
 /* Input: End */
 
@@ -752,6 +769,11 @@ main#home > *:last-of-type {
 ##############################################
 ##############################################
 */
+/*
+##############################################
+######        Locations Component       ######
+##############################################
+*/
 #location-list {
     margin-block: 30px;
 }
@@ -796,6 +818,191 @@ main#home > *:last-of-type {
 
 #location-list .location .opening-hours h3 {
     font-size: 1.1rem;
+}
+/*
+##############################################
+######        Reviews Component         ######
+##############################################
+*/
+#reviews-showcase {
+    margin-block: 20px;
+}
+
+#reviews-showcase h2 {
+    text-align: center;
+    margin-block-end: 10px;
+}
+
+#reviews-showcase ul {
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-inline: 10px;
+    padding: 10px;
+
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+
+    /* Overflow */
+    overflow-x: auto;     /* horizontal scrolling */
+    overflow-y: hidden;   /* prevent vertical scrollbar */
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE and Edge */
+}
+#reviews-showcase ul::-webkit-scrollbar {
+    display: none;        
+}
+
+#reviews-showcase ul > li {
+    /* As Flex Children */
+    flex: 0 0 auto;   /* don’t shrink, respect width */
+
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: #FFD200;
+    color: #002d5e;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid white;
+    block-size: 200px;
+    inline-size: 250px;
+    padding: 10px;
+}
+
+#reviews-showcase ul > li .review-score {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#reviews-showcase ul > li .review-score span:last-of-type {
+    margin-inline-start: auto;
+}
+
+#reviews-showcase ul > li .review-content {
+    overflow-x: hidden;     /* prevent horizontal scrollbar */
+    overflow-y: auto;   /* vertical scrolling */
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE and Edge */
+}
+#reviews-showcase ul > li .review-content::-webkit-scrollbar {
+    display: none;        
+}
+
+#reviews-showcase ul > li .review-content p {
+    /* Center text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+##############################################
+######      Write-Review Component      ######
+##############################################
+*/
+
+#review .user-review {
+    margin-block-end: 20px;
+}
+
+#review .user-review h2 {
+    margin-block-end: 15px;
+    text-align: center;
+}
+
+#review .user-review ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-inline: 15px;
+    padding-block: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+#review .user-review ul label {
+    font-weight: bold;
+}
+
+/* user-review UL child 1: start */
+#review .user-review ul .review-data {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+#review .user-review ul .review-data #email {
+    text-align: center;
+}
+
+#review .user-review ul .review-data #score {
+    text-align: center;
+    inline-size: 70px;
+}
+/* user-review UL child 1: end */
+
+/* user-review UL child 2: start */
+#review .user-review ul .review-content li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#review .user-review ul .review-content li textarea {
+    inline-size: 300px; 
+    min-block-size: 150px;     
+}
+/* user-review UL child 2: end */
+
+/* user-review UL child 3: start */
+#review .user-review ul .review-buttons {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+#review .user-review ul .review-buttons button {
+    block-size: 30px;
+    inline-size: 130px;
+}
+/* user-review UL child 3: end */
+
+/* user-review UL child 4: start */
+#review .user-review ul .review-dates {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-block: 10px;
+}
+
+#review .user-review ul .review-dates span {
+    font-weight: bold;
+}
+/* user-review UL child 4: end */
+
+#review .user-review .feedback p {
+    margin-block-start: 20px;
+    text-align: center;
 }
 
 /*
@@ -859,6 +1066,10 @@ main#not-found > p {
     margin-inline-end: 10px;
     font-size: 1.2rem;
     font-weight: bolder;
+}
+
+#login-admin ul > li input {
+    inline-size: 200px; 
 }
 
 #login-admin ul > li button {
@@ -994,10 +1205,31 @@ main#not-found > p {
     ##############################################
     ##############################################
     */
+    /*
+    ##############################################
+    ######        Locations Component       ######
+    ##############################################
+    */
     #location-list .location .map {
         inline-size: 500px;
         block-size: 500px;
     }
+
+    /*
+    ##############################################
+    ######      Write-Review Component      ######
+    ##############################################
+    */
+    /* user-review UL child 1: start */
+    #review .user-review ul .review-data {
+        /* As Flex Parent */
+        gap: 20px;
+    }
+
+    #review .user-review ul .review-data #email {
+        inline-size: 250px;
+    }
+    /* user-review UL child 1: end */
 
     /*
     ##############################################
@@ -1151,6 +1383,11 @@ main#not-found > p {
     ##############################################
     ##############################################
     */
+    /*
+    ##############################################
+    ######        Locations Component       ######
+    ##############################################
+    */
     #location-list .location {
         flex-direction: row;
     }
@@ -1159,6 +1396,51 @@ main#not-found > p {
         inline-size: 300px;
         block-size: 400px;
     }
+    /*
+    ##############################################
+    ######        Reviews Component         ######
+    ##############################################
+    */
+    #reviews-showcase ul {
+        block-size: 300px;
+        margin-inline: 30px;
+    }
+
+    #reviews-showcase ul > li {
+        block-size: 250px;
+        inline-size: 300px;
+        padding: 15px;
+    }
+
+    #reviews-showcase ul > li .review-score * {
+        font-size: 1.2rem;
+    }
+
+    /*
+    ##############################################
+    ######      Write-Review Component      ######
+    ##############################################
+    */
+    #review .user-review ul {
+        margin-inline: 40px;
+    }
+
+    /* user-review UL child 1: start */
+    #review .user-review ul .review-data {
+        gap: 20px;
+    }
+
+    #review .user-review ul .review-data #email {
+        inline-size: 250px;
+    }
+    /* user-review UL child 1: end */
+
+    /* user-review UL child 2: start */
+    #review .user-review ul .review-content li textarea {
+        inline-size: 500px; 
+        min-block-size: 150px;     
+    }
+    /* user-review UL child 2: end */
 
     /*
     ##############################################
@@ -1322,6 +1604,11 @@ main#not-found > p {
     ##############################################
     ##############################################
     */
+    /*
+    ##############################################
+    ######        Locations Component       ######
+    ##############################################
+    */
     #location-list .location h2 {
         font-size: 2rem;
     }
@@ -1338,6 +1625,52 @@ main#not-found > p {
         inline-size: 350px;
         block-size: 435px;
     }
+
+    /*
+    ##############################################
+    ######        Reviews Component         ######
+    ##############################################
+    */
+    #reviews-showcase ul {
+        block-size: 300px;
+        margin-inline: 50px;
+    }
+
+    #reviews-showcase ul > li {
+        block-size: 250px;
+        inline-size: 350px;
+        padding: 20px;
+    }
+
+    #reviews-showcase ul > li .review-score * {
+        font-size: 1.2rem;
+    }
+
+    /*
+    ##############################################
+    ######      Write-Review Component      ######
+    ##############################################
+    */
+    #review .user-review ul {
+        margin-inline: 40px;
+    }
+
+    /* user-review UL child 1: start */
+    #review .user-review ul .review-data {
+        gap: 20px;
+    }
+
+    #review .user-review ul .review-data #email {
+        inline-size: 300px;
+    }
+    /* user-review UL child 1: end */
+
+    /* user-review UL child 2: start */
+    #review .user-review ul .review-content li textarea {
+        inline-size: 500px; 
+        min-block-size: 200px;     
+    }
+    /* user-review UL child 2: end */
 
     /*
     ##############################################
@@ -1418,7 +1751,11 @@ main#not-found > p {
     ##############################################
     ##############################################
     */
-
+    /*
+    ##############################################
+    ######        Locations Component       ######
+    ##############################################
+    */
     #location-list .location > * {
         inline-size: 600px;
     }
@@ -1427,4 +1764,57 @@ main#not-found > p {
         inline-size: 400px;
         block-size: 500px;
     }
+
+    /*
+    ##############################################
+    ######        Reviews Component         ######
+    ##############################################
+    */
+    #reviews-showcase h2 {
+        font-size: 2rem;
+        margin-block-end: 20px;
+    }
+
+    #reviews-showcase ul {
+        block-size: 400px;
+        margin-inline: 150px;
+    }
+
+    #reviews-showcase ul > li {
+        block-size: 350px;
+        inline-size: 400px;
+        padding: 20px;
+    }
+
+    #reviews-showcase ul > li .review-score * {
+        font-size: 1.5rem;
+    }
+
+    #reviews-showcase ul > li .review-content {
+        font-size: 1.3rem;
+    }
+
+    /*
+    ##############################################
+    ######      Write-Review Component      ######
+    ##############################################
+    */
+    #review .user-review h2 {
+        font-size: 2rem;
+    }
+
+    #review .user-review * {
+        font-size: 1.2rem;
+    }
+
+    #review .user-review ul {
+        margin-inline: 150px;
+    }
+
+    /* user-review UL child 2: start */
+    #review .user-review ul .review-content li textarea {
+        inline-size: 700px; 
+        min-block-size: 300px;     
+    }
+    /* user-review UL child 2: end */
 }
