@@ -125,6 +125,14 @@ export default function WriteReviewComponent() {
                 console.error("Backend error:", error.response);
                 message = error.response.data.message;
 
+                // Store the review content email to the local storage
+                if (reviewContent.email) {
+                    setReview(prev => ({
+                        ...prev,
+                        email: reviewContent.email
+                    }));
+                }
+
             // Handle unexpected errors
             } else {
                 console.error("Unexpected error:", error.message);
@@ -298,7 +306,7 @@ export default function WriteReviewComponent() {
         const controller = new AbortController(); 
         retrieveReview();
 
-        // Retrieve image function
+        // Retrieve review function
         async function retrieveReview() {
             setPageFeedBack(prev => ({
                 ...prev,
@@ -425,7 +433,7 @@ export default function WriteReviewComponent() {
 
             {!pageFeedback.isLoading && pageFeedback.success && (
                 // Success retrieval
-                <section className="user-review fade-in-from-right">
+                <section className="user-review fade-in-from-left">
 
                     <h2>{ reviewContent.id ? "Current Review" : "Write a Review" }</h2>
 

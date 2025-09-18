@@ -358,7 +358,7 @@ def retrieve_all_locations():
                         DATE_FORMAT(OPENING_START, '%h:%i %p') AS OPENING_START,
                         DATE_FORMAT(OPENING_END, '%h:%i %p') AS OPENING_END
                     FROM LOCATION L 
-                    JOIN OPENING_HOUR O
+                    LEFT JOIN OPENING_HOUR O
                     ON L.LOCATION_ID = O.LOCATION_ID
                     ORDER BY 
                         L.LOCATION_ID,
@@ -368,14 +368,23 @@ def retrieve_all_locations():
                         );
                     """
         result_query = DatabaseScript.execute_read_query(select_query)
+
+        if not result_query:
+            raise AppError(
+                message=f"There are no locations found",
+                frontend_message="There are currently no locations",
+                status_code=404
+            )
+        
         current_app.logger.debug("Successfully retrieved all locations!...")
 
         for result in result_query:
-            # If this location is not in the list yet, then add it
-            if not any(location["id"] == result["LOC_ID"] for location in locations):
-                # Make each word in the address a
+            # Check if location already exists
+            location = next((loc for loc in locations if loc["id"] == result["LOC_ID"]), None)
 
-                locations.append({
+            if not location:
+                # Add the location with empty availabilities first
+                location = {
                     "id": int(result["LOC_ID"]),
                     "name": capitalize_words(result["LOCATION_NAME"]),
                     "address": capitalize_words(result["LOCATION_ADDRESS"]),
@@ -383,25 +392,18 @@ def retrieve_all_locations():
                     "state": result["LOCATION_STATE"],
                     "zip": result["LOCATION_ZIP"],
                     "phone": result["LOCATION_PHONE"],
-                    "availabilities": [{
-                        "id": int(result["OPENING_ID"]),
-                        "day": result["OPENING_DAY"].capitalize(),
-                        "start": result["OPENING_START"],
-                        "end": result["OPENING_END"]
-                    }]
-                })
+                    "availabilities": []
+                }
+                locations.append(cast(Location, location))
 
-            # If the location is already in the list, then just append its opening days   
-            else:
-                for location in locations:
-                    if location["id"] == result["LOC_ID"]:
-                        location["availabilities"].append({
-                            "id": int(result["OPENING_ID"]),
-                            "day": result["OPENING_DAY"].capitalize(),
-                            "start": result["OPENING_START"],
-                            "end": result["OPENING_END"]
-                        })
-                        break
+            # Only add availability if it exists
+            if result["OPENING_ID"] is not None:
+                location["availabilities"].append({
+                    "id": int(result["OPENING_ID"]),
+                    "day": result["OPENING_DAY"].capitalize(),
+                    "start": result["OPENING_START"],
+                    "end": result["OPENING_END"]
+                })
 
 
         return jsonify({
@@ -465,7 +467,7 @@ def retrieve_location():
                         DATE_FORMAT(OPENING_START, '%H:%i') AS OPENING_START,
                         DATE_FORMAT(OPENING_END, '%H:%i') AS OPENING_END
                     FROM LOCATION L 
-                    JOIN OPENING_HOUR O
+                    LEFT JOIN OPENING_HOUR O
                         ON L.LOCATION_ID = O.LOCATION_ID
                     WHERE L.LOCATION_ID = %s
                     ORDER BY 
@@ -476,6 +478,14 @@ def retrieve_location():
                         );
                     """
         result_query = DatabaseScript.execute_read_query(select_query, [location_id])
+
+        if not result_query:
+            raise AppError(
+                message=f"Location #{location_id} not found",
+                frontend_message="Location not found",
+                status_code=404
+            )
+        
         current_app.logger.debug(f"Successfully retrieved location #{location_id}!")
 
         location = {
@@ -489,13 +499,15 @@ def retrieve_location():
             "availabilities": []
         }
 
+        # Add opening hours only if they exist
         for result in result_query:
-            location['availabilities'].append({
-                "id": int(result['OPENING_ID']),
-                "day": result['OPENING_DAY'],
-                "start": result['OPENING_START'],
-                "end": result['OPENING_END'],
-            })
+            if result["OPENING_ID"] is not None:
+                location["availabilities"].append({
+                    "id": int(result["OPENING_ID"]),
+                    "day": result["OPENING_DAY"].capitalize(),
+                    "start": result["OPENING_START"],
+                    "end": result["OPENING_END"],
+                })
 
         return jsonify({
             "message": f"Successfully retrieved location #{location_id}",

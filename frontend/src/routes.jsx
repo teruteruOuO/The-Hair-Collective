@@ -11,7 +11,10 @@ const Contact = lazy(() => import("./pages/ContactPage.jsx"));
 const NotFound = lazy(() => import("./pages/NotFoundPage.jsx")); 
 const Login = lazy(() => import("./pages/LoginPage.jsx")); 
 const Panel = lazy(() => import("./pages/PanelPage.jsx")); 
-const Dashboard = lazy(() => import("./pages/DashboardPage.jsx")); 
+const RetrieveLocations = lazy(() => import("./pages/REST-Location/RetrieveLocationsPage.jsx")); 
+const NewLocation = lazy(() => import("./pages/REST-Location/NewLocationPage.jsx")); 
+const UpdateLocation = lazy(() => import("./pages/REST-Location/UpdateLocationPage.jsx"));
+
 
 export const router = createBrowserRouter([
     {
@@ -25,7 +28,7 @@ export const router = createBrowserRouter([
 
             // Blocked pages if logged in
             {
-                element: <AuthRoute />,  // automatically calls authorizeToken
+                element: <AuthRoute />,  
                 children: [
                     { path: "login", element: <Login /> },   // "/login"
                 ],
@@ -36,7 +39,9 @@ export const router = createBrowserRouter([
                 element: <ProtectedRoute />,  // automatically calls authorizeToken
                 children: [
                     { path: "panel", element: <Panel /> },          // panel
-                    { path: "dashboard", element: <Dashboard /> },  // dashboard
+                    { path: "locations", element: <RetrieveLocations /> },  // locations
+                    { path: "new-location", element: <NewLocation /> },  // new-location
+                    { path: "location/:id", element: <UpdateLocation /> },  // new-location
                 ],
             },
 

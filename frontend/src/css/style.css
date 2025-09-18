@@ -42,61 +42,13 @@ html {
     color:  #FFD200
 }
 
-/* Table: Start */
-table {
-    border-collapse: separate;
-    border-spacing: 0;
-    inline-size: 100%;
-    max-inline-size: 1300px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-th, td {
-    padding: 0.5rem;
-    border-block-end: 1px solid black; 
-    border-inline-end: 1px solid black; 
-    color: black;
-}
-
-
-td:nth-of-type(5) {
-    text-overflow:clip;
-}
-
-table tr td:first-child, 
-table tr th:first-child {
-    border-inline-start: 1px solid black; 
-}
-
-table tr th {
-    border-block-start: 1px solid black; 
-}
-
-table tr:first-child th:first-child {
-    border-top-left-radius: 0.5rem;
-}
-
-table tr:first-child th:last-child {
-    border-top-right-radius: 0.5rem;
-}
-
-table tr:last-child td:first-child {
-    border-bottom-left-radius: 0.5rem;
-}
-
-table tr:last-child td:last-child {
-    border-bottom-right-radius: 0.5rem;
-}
-/* Table End */
-
 /* Button: Start */
 button {
     background-color: #FFD200;
     color: #001832;
     min-inline-size: 100px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 2px solid white;
 }
 
 button:hover, button:active {
@@ -111,16 +63,16 @@ button:disabled {
 /* Button: End */
 
 /* Input: Start */
-input {
+input, select {
     color: #001832;
     background-color: #FFD200;
     inline-size: 150px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 2px solid white;
     padding-inline: 10px;
 }
 
-input:disabled {
+input:disabled, select:disabled {
     background-color: #aa8b00;
     color: #000c18;
 }
@@ -1078,6 +1030,362 @@ main#not-found > p {
     font-size: 1.2rem;
 }
 
+/*
+##############################################
+##############################################
+######                                  ######
+######          Panel Page              ######
+######                                  ######
+##############################################
+##############################################
+*/
+#panel-list {
+    margin-block: 20px;
+}
+
+#panel-list h1 {
+    text-align: center;
+    margin-block-end: 20px;
+}
+
+#panel-list ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#panel-list ul > * {
+    display: contents;
+}
+
+#panel-list ul a {
+    background-color: #FFD200;
+    border: 2px solid white;
+    border-radius: 5px;
+    color: #001832;
+    text-decoration: none;
+    block-size: 100px;
+    inline-size: 300px;
+    font-weight: bolder;
+    letter-spacing: 2.5px;
+
+    /* Center text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#panel-list ul a:focus, 
+#panel-list ul a:hover {
+    background-color: #ffe56f;
+    border: 5px dashed white;
+    color: #003e81;
+}
+
+#panel-list ul a:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
+######     All Locations Component      ######
+######                                  ######
+##############################################
+##############################################
+*/
+#retrieve-locations h1 {
+    text-align: center;
+    margin-block: 20px;
+}
+
+#retrieve-locations p {
+    display: contents;
+}
+
+#retrieve-locations p > a {
+    text-align: center;
+    text-decoration: none;
+    background-color: #FFD200;
+    color: #001832;
+    block-size: 70px;
+    inline-size: 170px;
+    margin-inline: auto;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+    /* Center text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#retrieve-locations p > a:focus, 
+#retrieve-locations p > a:hover {
+    background-color: #ffe56f;
+    border: 5px dashed white;
+    color: #003e81;
+}
+
+#retrieve-locations p > a:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+.locations-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    inline-size: 350px;
+    text-align: center;
+    margin-block: 20px;
+    margin-inline: auto;
+    
+}
+
+.locations-table th, 
+.locations-table td {
+    padding: 0.5rem;
+    border-block-end: 2px solid white; 
+    border-inline-end: 2px solid white; 
+    color: #001832;
+}
+
+.locations-table tr {
+    background-color: #FFD200;
+}
+
+.locations-table tbody tr {
+    block-size: 150px;
+}
+
+.locations-table tr td:first-child, 
+.locations-table tr th:first-child {
+    border-inline-start: 2px solid white; 
+    
+}
+
+.locations-table tr th:first-of-type,
+.locations-table tr td:first-of-type {
+    inline-size: 130px;
+    /* ellipsis setup */
+    white-space: nowrap;   
+    overflow: hidden;         
+    text-overflow: ellipsis;   
+}
+
+.locations-table tr th:last-of-type,
+.locations-table tr td:last-of-type {
+    /* ellipsis setup */
+    overflow: hidden;         
+    text-overflow: ellipsis;   
+}
+
+.locations-table tr th {
+    border-block-start: 2px solid white; 
+}
+
+.locations-table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.locations-table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.locations-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.locations-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.locations-table tbody tr:focus,
+.locations-table tbody tr:hover {
+    background-color: #ffe56f;
+    border: 5px dashed white;
+    color: #003e81;
+    cursor: pointer;
+}
+
+.locations-table tbody tr:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
+###### Add & Update Location Component  ######
+######                                  ######
+##############################################
+##############################################
+*/
+.post-location {
+    /* background-color: #5d758f;
+    border: 1px solid white; */
+    margin-block: 20px;
+}
+
+.post-location h1 {
+    text-align: center;
+    margin-block-end: 20px;
+}
+
+.post-location ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    /* background-color: #5d8f80;
+    border: 1px solid white; */
+}
+
+.post-location ul > li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* background-color: #6d8f5d;
+    border: 1px solid white; */
+}
+
+.post-location ul > li label {
+    font-weight: bold;
+}
+
+.post-location ul > li input,
+.post-location ul > li select {
+    text-align: center;
+    inline-size: 300px;
+    block-size: 45px;
+}
+
+.post-location ul > li:last-of-type {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.post-location ul > li button {
+    inline-size: 130px;
+    block-size: 45px;
+    font-weight: bold;
+}
+
+.post-location ul > li button:focus,
+.post-location ul > li button:hover {
+    background-color: #ffe56f;
+    border: 5px dashed white;
+    color: #003e81;
+    cursor: pointer;
+}
+
+.post-location ul > li button:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
+######   REST Opening Day Component     ######
+######                                  ######
+##############################################
+##############################################
+*/
+#location-availabilities {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    margin-block-start: 50px;
+}
+
+#location-availabilities h1 {
+    text-align: center;
+    margin-block-end: -20px;
+}
+
+/* List: Start */
+.update-opening-day {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+}
+
+.add-opening-day ul,
+.update-opening-day ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.add-opening-day ul > li,
+.update-opening-day ul > li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.add-opening-day ul > li label,
+.update-opening-day ul > li label {
+    min-inline-size: 100px; 
+    text-align: right;       
+    margin-inline-end: 10px;
+    font-weight: bolder;
+}
+
+.add-opening-day ul > li input,
+.add-opening-day ul > li select,
+.update-opening-day ul > li input,
+.update-opening-day ul > li select {
+    text-align: center; 
+}
+
+.add-opening-day ul > li:last-of-type,
+.update-opening-day ul > li:last-of-type {
+    gap: 30px;
+}
+
+.add-opening-day ul > li button:focus,
+.add-opening-day ul > li button:hover,
+.update-opening-day ul > li button:focus,
+.update-opening-day ul > li button:hover {
+    background-color: #ffe56f;
+    border: 2px dashed white;
+    color: #003e81;
+    cursor: pointer;
+}
+
+.add-opening-day ul > li button:active,
+.update-opening-day ul > li button:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+/* List: End */
+
 
 /*
 ##############################################
@@ -1241,7 +1549,26 @@ main#not-found > p {
     ##############################################
     */
     #login-admin {
-        block-size: 200px;
+     
+       block-size: 200px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######     All Locations Component      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .locations-table {
+        inline-size: 600px;
+        margin-block: 20px;
+    }
+
+    .locations-table tbody tr {
+        block-size: 150px;
     }
 }
 
@@ -1468,6 +1795,65 @@ main#not-found > p {
     #login-admin ul > li button {
         inline-size: 300px;
         font-size: 1.4rem;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######          Panel Page              ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #panel-list {
+        margin-block: 40px;
+    }
+
+    #panel-list ul a {
+        block-size: 150px;
+        inline-size: 350px;
+
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######     All Locations Component      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .locations-table {
+        inline-size: 700px;
+        margin-block: 40px;
+    }
+
+    .locations-table tbody tr {
+        block-size: 200px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######   REST Opening Day Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .add-opening-day ul > li input,
+    .add-opening-day ul > li select,
+    .update-opening-day ul > li input,
+    .update-opening-day ul > li select {
+        min-inline-size: 200px; 
+    }
+
+    .add-opening-day ul > li button,
+    .update-opening-day ul > li button {
+        inline-size: 130px;
+        block-size: 30px;
     }
 }
 
@@ -1700,6 +2086,121 @@ main#not-found > p {
         inline-size: 300px;
         font-size: 1.5rem;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######          Panel Page              ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #panel-list {
+        margin-block: 40px;
+    }
+
+    #panel-list ul a {
+        block-size: 150px;
+        inline-size: 350px;
+        font-size: 1.2rem;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######     All Locations Component      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .locations-table {
+        inline-size: 900px;
+        margin-block: 40px;
+    }
+
+    .locations-table tbody tr {
+        block-size: 200px;
+    }
+
+    .locations-table tr th:first-of-type,
+    .locations-table tr td:first-of-type {
+        inline-size: 200px;
+    }
+
+    .locations-table tbody * {
+        letter-spacing: 1.5px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ###### Add & Update Location Component  ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .post-location {
+        margin-block: 40px;
+    }
+
+    .post-location h1 {
+        margin-block-end: 30px;
+    }
+
+    .post-location ul {
+        /* As Flex Parent */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .post-location ul > li label {
+        font-size: 1.2rem;
+    }
+
+    .post-location ul > li input,
+    .post-location ul > li select {
+        font-size: 1.1rem;
+        inline-size: 400px;
+        block-size: 50px;
+    }
+
+    .post-location ul > li:last-of-type {
+        gap: 50px;
+    }
+
+    .post-location ul > li button {
+        inline-size: 170px;
+        block-size: 50px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######   REST Opening Day Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .add-opening-day ul > li input,
+    .add-opening-day ul > li select,
+    .update-opening-day ul > li input,
+    .update-opening-day ul > li select {
+        min-inline-size: 200px; 
+    }
+
+    .add-opening-day ul > li button,
+    .update-opening-day ul > li button {
+        inline-size: 130px;
+        block-size: 30px;
+    }
+    
 }
 
 /* ≥ 1920px — Desktop (Full HD and up) */
@@ -1817,4 +2318,61 @@ main#not-found > p {
         min-block-size: 300px;     
     }
     /* user-review UL child 2: end */
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######          Panel Page              ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+
+    #panel-list h1 {
+        font-size: 2.5rem;
+    }
+
+    #panel-list ul a {
+        block-size: 200px;
+        inline-size: 400px;
+        font-size: 1.2rem;
+        letter-spacing: 3px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######     All Locations Component      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .locations-table {
+        inline-size: 1300px;
+        margin-block: 50px;
+    }
+
+    .locations-table tr th:first-of-type,
+    .locations-table tr td:first-of-type {
+        inline-size: 300px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######   REST Opening Day Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    .add-opening-day ul > li input,
+    .add-opening-day ul > li select,
+    .update-opening-day ul > li input,
+    .update-opening-day ul > li select {
+        min-inline-size: 250px; 
+    }
+
 }
