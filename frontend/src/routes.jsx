@@ -3,6 +3,7 @@ import { lazy } from "react";
 import App from "./App.jsx";
 import ProtectedRoute from "./helpers/ProtectedRoute.jsx";
 import AuthRoute from "./helpers/AuthRoute.jsx";
+import { Navigate } from "react-router-dom";
 
 const Home = lazy(() => import("./pages/HomePage.jsx")); 
 const OurTeam = lazy(() => import("./pages/OurTeamPage.jsx"));   
@@ -14,6 +15,7 @@ const Panel = lazy(() => import("./pages/PanelPage.jsx"));
 const RetrieveLocations = lazy(() => import("./pages/REST-Location/RetrieveLocationsPage.jsx")); 
 const NewLocation = lazy(() => import("./pages/REST-Location/NewLocationPage.jsx")); 
 const UpdateLocation = lazy(() => import("./pages/REST-Location/UpdateLocationPage.jsx"));
+const Reviews = lazy(() => import("./pages/ReviewsPage.jsx"));
 
 
 export const router = createBrowserRouter([
@@ -41,7 +43,10 @@ export const router = createBrowserRouter([
                     { path: "panel", element: <Panel /> },          // panel
                     { path: "locations", element: <RetrieveLocations /> },  // locations
                     { path: "new-location", element: <NewLocation /> },  // new-location
-                    { path: "location/:id", element: <UpdateLocation /> },  // new-location
+                    { path: "location/:id", element: <UpdateLocation /> },  // specific location
+
+                    { path: "reviews", element: <Navigate to="/reviews/1" /> }, // reviews default
+                    { path: "reviews/:page", element: <Reviews /> },  // reviews
                 ],
             },
 

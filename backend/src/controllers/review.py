@@ -4,6 +4,7 @@ from src.models.database_script import DatabaseScript
 from typing import Any, List, Any, Dict, cast, TypedDict, Optional
 from src.config.s3_bucket import PersonalS3Bucket
 from src.helpers.neutralize_string import neutralize_string
+import math
 
 # Add a review
 def add_review():
@@ -270,3 +271,92 @@ def retrieve_reviews():
 
     except Exception as err:
         raise 
+
+# Retrieve all reviews with pagination in mind
+def retrieve_all_reviews():
+    try:
+        class Review(TypedDict):
+            id: int
+            email: str
+            score: float
+            content: str
+            date_added: str
+            date_updated: str
+
+        select_query: str
+        result_query: List[Any]
+        reviews: List[Review] = []                          
+        total_reviews: int                          
+        reviews_per_page = 4                               # page size
+        parameters = request.args
+        page: int = int(parameters.get("page") or 1)  # page=... (defaults to 1)
+        total_pages: int
+        offset: int = (page - 1) * reviews_per_page         # how many rows to skip
+        
+        current_app.logger.debug("Processing retrieve_all_reviews...")
+        current_app.logger.debug(f"Retrieving page {page} of reviews...")
+
+        # Total book count for pagination (count total rows for page count)
+        current_app.logger.debug("Determining the total review count for pagination...")
+        select_query = "SELECT COUNT(*) AS TOTAL FROM CUSTOMER C JOIN REVIEW R ON C.CUST_ID = R.CUST_ID;"
+        result_query = DatabaseScript.execute_read_query(select_query)
+
+        if len(result_query) <= 0:
+            raise AppError(
+                message=f"There are no review yet for pagination",
+                frontend_message="There are no reviews yet for pagination",
+                status_code=404
+            )
+        total_reviews = result_query[0]["TOTAL"] if result_query and result_query[0]["TOTAL"] else 0
+        total_pages = math.ceil(total_reviews / reviews_per_page)
+
+        if page > total_pages:
+            raise AppError(
+                message=f"Page ({page}) cannot be greater than the total pages ({total_pages})",
+                frontend_message=f"Page ({page}) cannot be greater than the total pages ({total_pages})",
+                status_code=400
+            )   
+
+        current_app.logger.debug(f"Successfully determined the total review count for pagination: {total_reviews}")
+        
+        # Retrieve all of the reviews
+        current_app.logger.debug(f"Retrieving reviews on page {page}...")
+        select_query = """
+                    SELECT 
+                        REVIEW_ID,
+                        CUST_EMAIL,
+                        REVIEW_SCORE,
+                        REVIEW_CONTENT,
+                        DATE_FORMAT(R.REVIEW_DATE_ADDED, '%b %e, %Y') AS REVIEW_DATE_ADDED,
+                        DATE_FORMAT(R.REVIEW_DATE_UPDATED, '%b %e, %Y') AS REVIEW_DATE_UPDATED
+                    FROM CUSTOMER C
+                    JOIN REVIEW R
+                    ON C.CUST_ID = R.CUST_ID
+                    ORDER BY REVIEW_DATE_ADDED DESC
+                    LIMIT %s OFFSET %s;
+                    """
+        result_query = DatabaseScript.execute_read_query(select_query, [reviews_per_page, offset])
+        current_app.logger.debug(f"Successfully retrieved page {page} of the reviews!")
+
+        if len(result_query) > 0:
+            for result in result_query:
+                reviews.append({
+                    "id": int(result['REVIEW_ID']),
+                    "email": result['CUST_EMAIL'],
+                    "score": float(result['REVIEW_SCORE']),
+                    "content": result['REVIEW_CONTENT'],
+                    "date_added": result['REVIEW_DATE_ADDED'],
+                    "date_updated": result['REVIEW_DATE_UPDATED'],
+                })
+
+        return jsonify({
+            "message": f"Successfully retrieved reviews (Page {page} of {total_pages})",
+            "total_reviews": total_reviews,
+            "total_pages": total_pages,
+            "current_page": page,
+            "reviews": reviews
+        }), 200
+
+        current_app.logger.debug("")
+    except Exception as err:
+        raise

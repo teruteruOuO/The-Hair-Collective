@@ -10,7 +10,7 @@ export default function PanelListComponent() {
                 <li><Link to="/locations" className="fade-in-from-right">Stylists</Link></li>
                 <li><Link to="/locations" className="fade-in-from-left">Services</Link></li>
                 <li><Link to="/locations" className="fade-in-from-right">Locations</Link></li>
-                <li><Link to="/locations" className="fade-in-from-left">Reviews</Link></li>
+                <li><Link to="/reviews" className="fade-in-from-left">Reviews</Link></li>
             </ul>
         </section>
     )
