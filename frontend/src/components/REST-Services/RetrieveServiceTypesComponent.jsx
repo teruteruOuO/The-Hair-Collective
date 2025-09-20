@@ -1,15 +1,13 @@
-import days from '../../helpers/days';
-import { useLocationStore } from '../../stores/location';
-import { useState, useRef } from 'react';
-import api from '../../helpers/api';
+import { useState, useRef } from "react";
+import { useServiceStore } from "../../stores/service";
+import api from "../../helpers/api";
 
-export default function LocationAvailabilitiesComponent() {
-    const { location, setLocation } = useLocationStore((s) => s);
+export default function RetrieveServiceTypesComponent() {
+    const { service, setService } = useServiceStore((s) => s);
     const feedbackSection = useRef(null);
-    const [newDay, setNewDay] = useState({
-        day: '',
-        start: '',
-        end: ''
+    const [newService, setNewService] = useState({
+        name: '',
+        description: 'Write a very short description'
     });
     const [addFeedback, setAddFeedback] = useState({
         isLoading: false,
@@ -33,26 +31,27 @@ export default function LocationAvailabilitiesComponent() {
     // Add Form inputs
     function handleAddChange(e) {
         const { name, value } = e.target;
-        setNewDay(prev => ({ ...prev, [name]: value }));
+        setNewService(prev => ({ ...prev, [name]: value }));
     }
 
     // Update Form inputs
     function handleUpdateChange(id, e) {
+        // service.types
         const { name, value } = e.target;
 
-        setLocation(prev => ({                                  // Each availability has a field with { id, day, start, end }
+        setService(prev => ({
             ...prev,
-            availabilities: prev.availabilities.map(a =>        // Loop through each field
-                a.id === id ? 
-                { ...a, [name]: value }                         // If a field's ID matches the id parameter, then update only the property that matches name with the new value.
-                : 
-                a                                               // Otherwise, just return the object unchanged
+            types: prev.types.map(type =>
+                type.id == id ?
+                {...type, [name]: value }
+                :
+                type
             )
         }));
     }
 
-    // Add day
-    async function addDay(e) {
+    // Add service type
+    async function addServiceType(e) {
         e.stopPropagation();
         e.preventDefault();
 
@@ -63,14 +62,12 @@ export default function LocationAvailabilitiesComponent() {
 
         try {
             const body = {
-                location_id: location.id,
-                day: newDay.day,
-                start: newDay.start,
-                end: newDay.end,
+                name: newService.name,
+                description: newService.description
             }
-            const response = await api.post('/api/location/opening-hour', body);
+            const response = await api.post('/api/service/type', body);
             console.log(response.data.message);
-            console.log("Add Opening Hour Data Information:", response);
+            console.log("Add Service Type Data Information:", response);
             
             setAddFeedback(prev => ({
                 ...prev,
@@ -81,14 +78,14 @@ export default function LocationAvailabilitiesComponent() {
             window.alert(response.data.message);
 
             // Trigger useState of this component's parent to refresh
-            setLocation(prev => ({
+            setService(prev => ({
                 ...prev,
                 version: prev.version + 1
             }));
 
 
         } catch (error) {
-            console.error(`An error occured while adding the opening day`);
+            console.error(`An error occured while adding the service type`);
             let message;
 
             // Handle errors returned from the backend
@@ -118,8 +115,8 @@ export default function LocationAvailabilitiesComponent() {
         }
     }
 
-    // Update day
-    async function updateDay(day, e) {
+    // Update Service Type
+    async function updateServiceType(type, e) {
         e.stopPropagation();
         e.preventDefault();
 
@@ -128,9 +125,9 @@ export default function LocationAvailabilitiesComponent() {
             message: '',
             success: null
         });
-        setCurrentUpdatingId(day.id);   // mark which one is updating
+        setCurrentUpdatingId(type.id);   // mark which one is updating
 
-        const answer = window.confirm("Are you sure you want to update this opening day?");
+        const answer = window.confirm(`Are you sure you want to update service type ${type.name.toUpperCase()}?`);
 
         if (!answer) {
             setCurrentUpdatingId(null);
@@ -144,14 +141,13 @@ export default function LocationAvailabilitiesComponent() {
 
         try {
             const body = {
-                id: day.id,
-                day: day.day,
-                start: day.start,
-                end: day.end,
+                id: type.id,
+                name: type.name,
+                description: type.description
             }
-            const response = await api.put('/api/location/opening-hour', body);
+            const response = await api.put('/api/service/type', body);
             console.log(response.data.message);
-            console.log("Updating Opening Hour Data Information:", response);
+            console.log("Update Service Type Data Information:", response);
             
             setUpdateFeedback(prev => ({
                 ...prev,
@@ -162,14 +158,14 @@ export default function LocationAvailabilitiesComponent() {
             window.alert(response.data.message);
 
             // Trigger useState of this component's parent to refresh
-            setLocation(prev => ({
+            setService(prev => ({
                 ...prev,
                 version: prev.version + 1
             }));
 
 
         } catch (error) {
-            console.error(`An error occured while updating the opening day`);
+            console.error(`An error occured while updating the service type`);
             let message;
 
             // Handle errors returned from the backend
@@ -200,8 +196,8 @@ export default function LocationAvailabilitiesComponent() {
         }
     }
 
-    // Delete day
-    async function deleteDay(day, e) {
+    // Delete Service Type
+    async function deleteServiceType(type, e) {
         e.stopPropagation();
         e.preventDefault();
 
@@ -210,9 +206,9 @@ export default function LocationAvailabilitiesComponent() {
             message: '',
             success: null
         });
-        setCurrentDeletingId(day.id);   // mark which one is deleting
+        setCurrentDeletingId(type.id);   // mark which one is deleting
 
-        const answer = window.confirm("Are you sure you want to delete this opening day?");
+        const answer = window.confirm(`Are you sure you want to delete service type ${type.name.toUpperCase()}?`);
 
         if (!answer) {
             setCurrentDeletingId(null);
@@ -225,10 +221,10 @@ export default function LocationAvailabilitiesComponent() {
         }));
 
         try {
-            const parameters = { id: day.id }
-            const response = await api.delete('/api/location/opening-hour', { params: parameters });
+            const parameters = { id: type.id }
+            const response = await api.delete('/api/service/type', { params: parameters });
             console.log(response.data.message);
-            console.log("Deleting Opening Hour Data Information:", response);
+            console.log("Delete Service Type Data Information:", response);
             
             setDeleteFeedback(prev => ({
                 ...prev,
@@ -239,14 +235,14 @@ export default function LocationAvailabilitiesComponent() {
             window.alert(response.data.message);
 
             // Trigger useState of this component's parent to refresh
-            setLocation(prev => ({
+            setService(prev => ({
                 ...prev,
                 version: prev.version + 1
             }));
 
 
         } catch (error) {
-            console.error(`An error occured while deleting the opening day`);
+            console.error(`An error occured while deleting the service type`);
             let message;
 
             // Handle errors returned from the backend
@@ -260,7 +256,7 @@ export default function LocationAvailabilitiesComponent() {
                 message = "An unexpected error happend with the component itself. Refresh the page or try contacting the admin.";
             }
 
-            setCurrentDeletingId(prev => ({
+            setDeleteFeedback(prev => ({
                 ...prev,
                 message: message,
                 success: false
@@ -278,78 +274,81 @@ export default function LocationAvailabilitiesComponent() {
     }
 
     return (
-        <section id="location-availabilities">
-            <h1>Availabilities</h1>
+        <section id="service-types">
+            <h2 className="fade-in-from-left">Service Types</h2>
 
-            <section className='add-opening-day fade-in-from-right'>
-                <form onSubmit={addDay} id="add-opening-day-form">
+            <section className="add-service-type">
+                <form onSubmit={addServiceType} id="add-service-type-form" className="fade-in-from-right">
                     <ul>
                         <li>
-                            <label htmlFor="day">Day: </label>
-                            <select name="day" id="day" value={newDay.day} onChange={handleAddChange} placeholder="New Location" required>
-                                <option value=""></option>
-                                {days.map(day => (
-                                <option value={day} key={day}>{day}</option>
-                                ))}
-                            </select>
+                            <h3>New Service Type</h3>
                         </li>
                         <li>
-                            <label htmlFor="start">Start Hour: </label>
-                            <input type="time" name="start" id="start" value={newDay.start} onChange={handleAddChange} required />
+                            <label htmlFor="name">Name: </label>
+                            <input type="text" name="name" id="name" 
+                            value={newService.name}
+                            onChange={handleAddChange}
+                            required
+                            />
                         </li>
+
                         <li>
-                            <label htmlFor="end">End Hour: </label>
-                            <input type="time" name="end" id="end" value={newDay.end} onChange={handleAddChange} required />
+                            <label htmlFor="description">Description: </label>
+                            <textarea name="description" id="description" value={newService.description} onChange={handleAddChange} required>
+                            </textarea>
                         </li>
+
                         <li>
                             <button type="submit" disabled={addFeedback.isLoading}>
-                                {addFeedback.isLoading ? 'Adding...' : 'Add'}
+                                {addFeedback.isLoading ? "Submitting..." : "Submit"}
                             </button>
                         </li>
                     </ul>
                 </form>
 
-                <section className={`feedback ${addFeedback.success === false ? "fail" : ""}`} ref={feedbackSection}>
-                    {addFeedback.success === false && 
-                    <p>{addFeedback.message}</p>
-                    }
+                <section className="feedback" ref={feedbackSection}>
+                    {addFeedback.success === false && (
+                    <p className="fail">{addFeedback.message}</p>
+                    )}
                 </section>
             </section>
 
-            {location.availabilities.length >= 1 && (
-            <section className='update-opening-day fade-in-from-left'>
-                {location.availabilities.map((availability, index) => (
-                <div id={`update-opening-day-form-${availability.id}`} key={availability.id}>
+            {service.types.length >= 1 && (
+            <section className="update-service-type">
+                {service.types.map((type, index) => (
+                <div id={`update-service-type-form-${type.id}`} key={type.id} className={index % 2 == 0 ? 'fade-in-from-left' : 'fade-in-from-right'}>
                     <ul>
                         <li>
-                            <h3>Opening Hour #{index + 1}</h3>
-                        </li>
-                        <li className={index % 2 == 0 ? 'fade-in-from-right' : 'fade-in-from-left'}>
-                            <label htmlFor={`day-${availability.id}`}>Day: </label>
-                            <select name="day" id={`day-${availability.id}`} value={availability.day} onChange={(e) => handleUpdateChange(availability.id, e)} required>
-                                <option value=""></option>
-                                {days.map(day => (
-                                    <option value={day} key={day}>{day}</option>
-                                ))}
-                            </select>
+                            <h3>Service Type #{index + 1}</h3>
                         </li>
                         <li>
-                            <label htmlFor={`start-${availability.id}`}>Start Hour: </label>
-                            <input type="time" name="start" id={`start-${availability.id}`} value={availability.start} onChange={(e) => handleUpdateChange(availability.id, e)} required />
+                            <label htmlFor={`name-${type.id}-${type.name}`}>Name: </label>
+                            <input type="text" name="name" id={`name-${type.id}-${type.name}`}
+                            value={type.name}
+                            onChange={(e) => handleUpdateChange(type.id, e)}
+                            required
+                            />
                         </li>
+
                         <li>
-                            <label htmlFor={`end-${availability.id}`}>End Hour: </label>
-                            <input type="time" name="end" id={`end-${availability.id}`} value={availability.end} onChange={(e) => handleUpdateChange(availability.id, e)} required />
+                            <label htmlFor={`description-${type.id}-${type.description}`}>Description: </label>
+                            <textarea name="description" id={`description-${type.id}-${type.description}`} value={type.description} onChange={(e) => handleUpdateChange(type.id, e)} required>
+                            </textarea>
                         </li>
+
                         <li>
-                            <button type="button" onClick={(e) => updateDay(availability, e)} disabled={updateFeedback.isLoading && currentUpdatingId === availability.id}>
-                                {updateFeedback.isLoading && currentUpdatingId === availability.id
+                            <button type="button" 
+                            onClick={(e) => updateServiceType(type, e)}
+                            disabled={updateFeedback.isLoading && currentUpdatingId === type.id}>
+                                {updateFeedback.isLoading && currentUpdatingId === type.id
                                 ? "Updating..."
                                 : "Update"
                                 }
                             </button>
-                            <button type="button" onClick={(e) => deleteDay(availability, e)} disabled={deleteFeedback.isLoading && currentDeletingId === availability.id}>
-                                {deleteFeedback.isLoading && currentDeletingId === availability.id
+                            <button type="button"
+                            onClick={(e) => deleteServiceType(type, e)} 
+                            disabled={deleteFeedback.isLoading && currentDeletingId === type.id}>
+                                {deleteFeedback.isLoading && currentDeletingId === type.id
                                 ? "Deleting..."
                                 : "Delete"
                                 }
@@ -359,21 +358,22 @@ export default function LocationAvailabilitiesComponent() {
                 </div>
                 ))}
 
-                <section className={`feedback ${deleteFeedback.success === false ? "fail" : ""}`} ref={feedbackSection}>
-                    {updateFeedback.success === false && 
-                    <p>{updateFeedback.message}</p>
-                    }
-                </section>
+                <section className="update-feedbacks">
+                    <section className={`feedback ${updateFeedback.success === false ? "fail" : ""}`} ref={feedbackSection}>
+                        {updateFeedback.success === false && 
+                        <p>{updateFeedback.message}</p>
+                        }
+                    </section>
 
-                <section className={`feedback ${deleteFeedback.success === false ? "fail" : ""}`} ref={feedbackSection}>
-                    {deleteFeedback.success === false && 
-                    <p>{deleteFeedback.message}</p>
-                    }
+                    <section className={`feedback ${deleteFeedback.success === false ? "fail" : ""}`} ref={feedbackSection}>
+                        {deleteFeedback.success === false && 
+                        <p>{deleteFeedback.message}</p>
+                        }
+                    </section>
                 </section>
+                
             </section>
             )}
-
-            
         </section>
     );
 }

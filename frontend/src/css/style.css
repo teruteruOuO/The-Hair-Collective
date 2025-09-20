@@ -1509,6 +1509,237 @@ main#not-found > p {
 ##############################################
 ##############################################
 ######                                  ######
+######      Retrieve Services Page      ######
+######                                  ######
+##############################################
+##############################################
+*/
+#retrieve-services h1 {
+    text-align: center;
+    margin-block-start: 20px;
+}
+/*
+##############################################
+######    Service Types Component       ######
+##############################################
+*/
+
+#service-types {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    border: 2px solid white;
+    border-radius: 10px;
+
+    margin-block: 20px;
+    margin-inline: 20px;
+}
+
+#service-types > h2 {
+    text-align: center;
+    margin-block-start: 20px;
+}
+
+#service-types .add-service-type,
+#service-types .update-service-type {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+#service-types .add-service-type > *:last-child,
+#service-types .update-service-type > *:last-child {
+    /* Always take the entire space (feedbacks) */
+    flex: 0 0 100%
+}
+
+/* Service Type Forms: Start */
+#service-types .add-service-type ul,
+#service-types .update-service-type ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    inline-size: 300px;
+    block-size: 300px;
+    padding-block: 5px;
+
+    background-color: rgb(150, 3, 3);
+    border: 2px solid white;
+    border-radius: 10px;
+}   
+
+#service-types .add-service-type ul > li,
+#service-types .update-service-type ul > li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#service-types .update-service-type ul > li:last-of-type {
+    /* As Flex Parent */
+   flex-direction: row;
+   gap: 10px;
+}
+
+#service-types .add-service-type ul > li input,
+#service-types .add-service-type ul > li textarea,
+#service-types .update-service-type ul > li input,
+#service-types .update-service-type ul > li textarea {
+    inline-size: 250px;
+    text-align: center;
+}
+
+#service-types .add-service-type ul > li textarea,
+#service-types .update-service-type ul > li textarea {
+    min-block-size: 130px;
+    resize: none;
+}
+
+#service-types .add-service-type ul > li label,
+#service-types .add-service-type ul > li button,
+#service-types .update-service-type ul > li label,
+#service-types .update-service-type ul > li button  {
+    font-weight: bolder;
+}
+
+#service-types .add-service-type ul > li button:focus,
+#service-types .add-service-type ul > li button:hover,
+#service-types .update-service-type ul > li button:focus,
+#service-types .update-service-type ul > li button:hover {
+    background-color: #ffe56f;
+    border: 2px dashed white;
+    color: #003e81;
+    cursor: pointer;
+}
+
+#service-types .add-service-type ul > li button:active,
+#service-types .update-service-type ul > li button:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+/* Service Type Forms: End */
+/*
+##############################################
+######    Service Instances Component   ######
+##############################################
+*/
+#service-instance {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-block: 40px;
+    margin-inline: 10px;
+}
+
+#service-instance > h2 {
+    text-align: center;
+    margin-block-start: 20px;
+}
+
+#service-instance .add-service-instance,
+#service-instance .update-service-instance {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#service-instance .update-service-instance .service-type-instance {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+#service-instance h3 {
+    text-align: center;
+    padding-inline: 10px;
+    flex: 1 1 100%;
+}
+
+#service-instance .add-service-instance > *:last-child,
+#service-instance .update-service-instance > *:last-child {
+    /* Always take the entire space (feedbacks) */
+    flex: 0 0 100%
+}
+
+/* Service Instance Forms: Start */
+#service-instance .add-service-instance ul,
+#service-instance .update-service-instance ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+
+
+    inline-size: 300px;
+    block-size: 200px;
+
+    background-color: #165f34;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+#service-instance .add-service-instance ul > li,
+#service-instance .update-service-instance ul > li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+}
+
+#service-instance .add-service-instance ul > li label,
+#service-instance .update-service-instance ul > li label {
+    text-align: center;
+    min-inline-size: 70px;
+}
+
+#service-instance .add-service-instance ul > li input,
+#service-instance .add-service-instance ul > li select,
+#service-instance .update-service-instance ul > li input,
+#service-instance .update-service-instance ul > li select {
+    inline-size: 160px;
+    text-align: center;
+}
+
+#service-instance .add-service-instance ul > li label,
+#service-instance .add-service-instance ul > li button,
+#service-instance .update-service-instance ul > li label,
+#service-instance .update-service-instance ul > li button {
+    font-weight: bold;
+}
+/* Service Instance Forms: End */
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######          Media Queries           ######
 ######                                  ######
 ##############################################
@@ -1688,6 +1919,28 @@ main#not-found > p {
     .locations-table tbody tr {
         block-size: 150px;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######      Retrieve Services Page      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    /*
+    ##############################################
+    ######    Service Types Component       ######
+    ##############################################
+    */
+    #service-types .update-service-type {
+        /* As Flex Parent */
+        flex-direction: row;
+        gap: 20px;
+
+    }
+
 }
 
 /* ≥ 768px — Tablet Vertical */
@@ -1987,6 +2240,47 @@ main#not-found > p {
         /* As Flex Parent */
         flex-direction: row;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######      Retrieve Services Page      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    /*
+    ##############################################
+    ######    Service Types Component       ######
+    ##############################################
+    */
+    #service-types {
+        margin-inline: 50px;
+    }
+
+    #service-types .update-service-type {
+        /* As Flex Parent */
+        flex-direction: row;
+        gap: 20px;
+
+    }
+    /*
+    ##############################################
+    ######    Service Instances Component   ######
+    ##############################################
+    */
+    #service-instance {
+        margin-inline: 20px;
+    }
+
+    #service-instance .update-service-instance .service-type-instance {
+        /* As Flex Parent */
+        flex-direction: row;
+        justify-content: center;
+        margin-inline: 20px;
+    }
+
 }
 
 /* ≥ 1024px — Tablet Horizontal (also small laptops) */
@@ -2348,7 +2642,47 @@ main#not-found > p {
         margin-inline: 130px;
         column-gap: 50px;
     }
-    
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######      Retrieve Services Page      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    /*
+    ##############################################
+    ######    Service Types Component       ######
+    ##############################################
+    */
+    #service-types {
+        margin-inline: 80px;
+    }
+
+    #service-types .update-service-type {
+        /* As Flex Parent */
+        flex-direction: row;
+        gap: 40px;
+    }
+    /*
+    ##############################################
+    ######    Service Instances Component   ######
+    ##############################################
+    */
+    #service-instance {
+        margin-inline: 70px;
+    }
+
+    #service-instance .update-service-instance .service-type-instance {
+        /* As Flex Parent */
+        flex-direction: row;
+        justify-content: center;
+        margin-inline: 20px;
+
+        inline-size: 800px;
+    }
 }
 
 /* ≥ 1920px — Desktop (Full HD and up) */
@@ -2536,5 +2870,27 @@ main#not-found > p {
         /* As Flex Parent */
         margin-inline: 300px;
         column-gap: 50px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######      Retrieve Services Page      ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    /*
+    ##############################################
+    ######    Service Instances Component   ######
+    ##############################################
+    */
+    #service-instance .update-service-instance {
+        gap: 50px;
+    }
+
+    #service-instance .update-service-instance .service-type-instance {
+        inline-size: 1000px;
     }
 }

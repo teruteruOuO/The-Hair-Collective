@@ -14,6 +14,7 @@ const Login = lazy(() => import("./pages/LoginPage.jsx"));
 const Panel = lazy(() => import("./pages/PanelPage.jsx")); 
 const RetrieveLocations = lazy(() => import("./pages/REST-Location/RetrieveLocationsPage.jsx")); 
 const NewLocation = lazy(() => import("./pages/REST-Location/NewLocationPage.jsx")); 
+const RetrieveServices = lazy(() => import("./pages/REST-Services/RetrieveServicesPage.jsx"));
 const UpdateLocation = lazy(() => import("./pages/REST-Location/UpdateLocationPage.jsx"));
 const Reviews = lazy(() => import("./pages/ReviewsPage.jsx"));
 
@@ -44,6 +45,8 @@ export const router = createBrowserRouter([
                     { path: "locations", element: <RetrieveLocations /> },  // locations
                     { path: "new-location", element: <NewLocation /> },  // new-location
                     { path: "location/:id", element: <UpdateLocation /> },  // specific location
+
+                    { path: "update-services", element: <RetrieveServices /> },  // admin-side services
 
                     { path: "reviews", element: <Navigate to="/reviews/1" /> }, // reviews default
                     { path: "reviews/:page", element: <Reviews /> },  // reviews

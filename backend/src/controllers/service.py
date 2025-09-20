@@ -90,7 +90,7 @@ def update_service_type():
         current_app.logger.debug(f"Successfully updated service type {type['name']} in the database!")
 
         return jsonify({
-            "message": f"Successfully updated service type {type['name']}",
+            "message": f"Successfully updated the service type",
         }), 200
         
     except Exception as err:
@@ -124,7 +124,7 @@ def delete_service_type():
         current_app.logger.debug(f"Successfully delete service type #{type_id} in the database!")
 
         return jsonify({
-            "message": f"Successfully deleted service type #{type_id}",
+            "message": f"Successfully deleted the service type",
         }), 200
         
     except Exception as err:
@@ -252,7 +252,7 @@ def update_service():
         current_app.logger.debug(f"Successfully updated service {service['name']} to the database!")
 
         return jsonify({
-            "message": f"Successfully updated service {service['name']}",
+            "message": f"Successfully updated the service",
         }), 200
         
     except Exception as err:
@@ -286,13 +286,13 @@ def delete_service():
         current_app.logger.debug(f"Successfully deleteD service #{service_id} from the database!")
 
         return jsonify({
-            "message": f"Successfully deleted service #{service_id}",
+            "message": f"Successfully deleted the service",
         }), 200
         
     except Exception as err:
         raise 
 
-# Retrieve all Service Types
+# Retrieve all Services
 def retrieve_services():
     try:
         class Service(TypedDict):
@@ -318,6 +318,7 @@ def retrieve_services():
         current_app.logger.debug(f"Retrieving all services from the database...")
         select_query = "SELECT SERVICE_ID, SERVICE_NAME, SERVICE_PRICE, TYPE_ID FROM SERVICE ORDER BY SERVICE_PRICE DESC;"
         result_query = DatabaseScript.execute_read_query(select_query)
+        
         current_app.logger.debug(f"Successfully retrieved all services from the database!")
 
         # Store all services 

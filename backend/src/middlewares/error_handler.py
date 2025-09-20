@@ -66,7 +66,7 @@ def register_error_handlers(app):
             
             # Can't delete a TYPE when it has CHILDREN
             if sql_code == 1451 and (("Cannot delete or update a parent row") or ("CONSTRAINT `service_ibfk_2` FOREIGN KEY (`TYPE_ID`) REFERENCES `type` (`TYPE_ID`) ON UPDATE CASCADE") in sql_message):
-                app.logger.error("Cannot delete a SERVICE TYPE that has CHILDREN")
+                app.logger.error("Cannot delete a SERVICE TYPE that has EXISTING SERVICES")
                 return jsonify({"message": "You must remove all services that point to this service type first"}), 400
             
             # ----------- Service table errors -----------
