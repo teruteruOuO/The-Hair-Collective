@@ -6,7 +6,7 @@ export default function PanelListComponent() {
             <h1 className="fade-in-from-right">Panel</h1>
 
             <ul>
-                <li><Link to="/locations" className="fade-in-from-left">Showcased Images</Link></li>
+                <li><Link to="/showcase" className="fade-in-from-left">Showcased Images</Link></li>
                 <li><Link to="/stylists" className="fade-in-from-right">Stylists</Link></li>
                 <li><Link to="/update-services" className="fade-in-from-left">Services</Link></li>
                 <li><Link to="/locations" className="fade-in-from-right">Locations</Link></li>

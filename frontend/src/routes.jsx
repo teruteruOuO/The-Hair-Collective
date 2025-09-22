@@ -19,6 +19,7 @@ const UpdateLocation = lazy(() => import("./pages/REST-Location/UpdateLocationPa
 const RetrieveStylist = lazy(() => import("./pages/REST-Stylist/RetrieveStylistsPage.jsx"));
 const AddStylist = lazy(() => import("./pages/REST-Stylist/AddStylistPage.jsx"));
 const StylistInstance = lazy(() => import("./pages/REST-Stylist/StylistInstancePage.jsx"));
+const Showcase = lazy(() => import("./pages/REST-Showcase/ShowcasePage.jsx"));
 const Reviews = lazy(() => import("./pages/ReviewsPage.jsx"));
 
 
@@ -57,6 +58,8 @@ export const router = createBrowserRouter([
                     { path: "stylists", element: <RetrieveStylist /> },  // stylists
                     { path: "add-stylist", element: <AddStylist /> },  // add-stylist
                     { path: "stylist/:id", element: <StylistInstance /> },  // update stylist
+
+                    { path: "showcase", element: <Showcase /> },  // reviews
                 ],
             },
 

@@ -43,8 +43,8 @@ html {
 }
 
 /* Button: Start */
-/* #image and custom-file-upload is for input that handles images */
-#image {
+/* type=file and custom-file-upload is for input that handles images */
+input[type="file"] {
     display: none;
 }
 
@@ -1932,6 +1932,189 @@ main#not-found > p {
 ##############################################
 ##############################################
 ######                                  ######
+######    Retrieve Images Component     ######
+######                                  ######
+##############################################
+##############################################
+*/
+#showcase {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-block: 30px;
+    gap: 50px;
+}
+
+#retrieve-images .images {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    border: 2px solid white;
+    border-radius: 10px;
+
+    inline-size: 350px;
+    padding: 20px;
+
+}
+
+#retrieve-images .images > h2 {
+    /* As Flex Child */
+    flex: 1 1 100%;
+    text-align: center;
+
+    text-transform: capitalize;
+}
+
+#retrieve-images .images > .image-container {
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+#retrieve-images .images > .image-container > ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+
+    padding: 10px;
+}
+
+#retrieve-images .images > .image-container > ul > li {
+    /* Position */
+    position: relative;
+
+    block-size: 200px;
+    inline-size: 150px;
+    border-radius: 5px;
+    background-color: white;
+    border: 2px solid white;
+}
+
+#retrieve-images .images > .image-container > ul > li.featured {
+    block-size: 150px;
+    inline-size: 150px;
+}
+
+#retrieve-images .images > .image-container > ul > li img {
+    /* Position */
+    position: absolute;
+    border-radius: inherit;
+
+    block-size: 100%;
+    inline-size: 100%;
+}
+
+#retrieve-images .images > .image-container > ul > li button {
+    /* Position */
+    position: absolute;
+    inset-inline-end: 2px;
+    inset-block-start: 2px;
+    z-index: 1;
+
+    background-color: rgb(255, 75, 75);
+    color: white;
+    min-inline-size: 25px;
+    opacity: 0.8;
+} 
+
+#retrieve-images .images > .image-container > ul > li button:hover,
+#retrieve-images .images > .image-container > ul > li button:focus {
+    background-color: rgb(255, 164, 164);
+}
+
+#retrieve-images .images > .image-container > ul > li button:active,
+#retrieve-images .images > .image-container > ul > li button:disabled {
+    background-color: rgb(88, 18, 18);
+}
+
+#retrieve-images .images > .add-image {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+
+}
+
+#retrieve-images .images > .add-image > .buttons {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    block-size: 200px;
+    inline-size: 150px;
+
+}
+
+#retrieve-images .images > .add-image > .buttons > * {
+    flex: 1 1 100%;
+
+    font-weight: bolder;
+    padding-inline: 10px;
+}
+
+#retrieve-images .images > .add-image > .buttons > *:focus,
+#retrieve-images .images > .add-image > .buttons > *:hover {
+    background-color: #ffe56f;
+    border: 5px dashed white;
+    color: #003e81;
+}
+
+#retrieve-images .images > .add-image > .buttons > *:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+#retrieve-images .images > .add-image > .image-preview {
+    /* Center */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    block-size: 200px;
+    inline-size: 150px;
+
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 2px solid white;
+}
+
+#retrieve-images .images > .add-image > .buttons.featured,
+#retrieve-images .images > .add-image > .image-preview.featured {
+    block-size: 150px;
+    inline-size: 150px;
+}
+
+
+#retrieve-images .images > .add-image > .image-preview img {
+    border-radius: inherit;
+    background-color: #ffffff;
+    block-size: 100%;
+    inline-size: 100%;
+}
+
+#retrieve-images .images > .add-image > .image-preview p {
+    padding-inline: 10px;
+    text-align: center;
+    color: black;
+    font-weight: bolder;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######          Media Queries           ######
 ######                                  ######
 ##############################################
@@ -2131,6 +2314,19 @@ main#not-found > p {
         flex-direction: row;
         gap: 20px;
 
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######    Retrieve Images Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #retrieve-images .images {
+        inline-size: 600px;
     }
 
 }
@@ -2502,6 +2698,19 @@ main#not-found > p {
         block-size: 40px;
         font-weight: bolder;
         font-size: 1.2rem;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######    Retrieve Images Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #retrieve-images .images {
+        inline-size: 700px;
     }
 }
 
@@ -2940,6 +3149,19 @@ main#not-found > p {
         font-weight: bolder;
         font-size: 1.2rem;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######    Retrieve Images Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #retrieve-images .images {
+        inline-size: 900px;
+    }
 }
 
 /* ≥ 1920px — Desktop (Full HD and up) */
@@ -3162,5 +3384,18 @@ main#not-found > p {
 
     #service-instance .update-service-instance .service-type-instance {
         inline-size: 1000px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######    Retrieve Images Component     ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #retrieve-images .images {
+        inline-size: 1200px;
     }
 }
