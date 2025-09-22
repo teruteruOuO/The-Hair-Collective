@@ -16,6 +16,9 @@ const RetrieveLocations = lazy(() => import("./pages/REST-Location/RetrieveLocat
 const NewLocation = lazy(() => import("./pages/REST-Location/NewLocationPage.jsx")); 
 const RetrieveServices = lazy(() => import("./pages/REST-Services/RetrieveServicesPage.jsx"));
 const UpdateLocation = lazy(() => import("./pages/REST-Location/UpdateLocationPage.jsx"));
+const RetrieveStylist = lazy(() => import("./pages/REST-Stylist/RetrieveStylistsPage.jsx"));
+const AddStylist = lazy(() => import("./pages/REST-Stylist/AddStylistPage.jsx"));
+const StylistInstance = lazy(() => import("./pages/REST-Stylist/StylistInstancePage.jsx"));
 const Reviews = lazy(() => import("./pages/ReviewsPage.jsx"));
 
 
@@ -50,6 +53,10 @@ export const router = createBrowserRouter([
 
                     { path: "reviews", element: <Navigate to="/reviews/1" /> }, // reviews default
                     { path: "reviews/:page", element: <Reviews /> },  // reviews
+
+                    { path: "stylists", element: <RetrieveStylist /> },  // stylists
+                    { path: "add-stylist", element: <AddStylist /> },  // add-stylist
+                    { path: "stylist/:id", element: <StylistInstance /> },  // update stylist
                 ],
             },
 

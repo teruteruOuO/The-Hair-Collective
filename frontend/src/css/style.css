@@ -43,7 +43,20 @@ html {
 }
 
 /* Button: Start */
-button {
+/* #image and custom-file-upload is for input that handles images */
+#image {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+button,
+.custom-file-upload {
     background-color: #FFD200;
     color: #001832;
     min-inline-size: 100px;
@@ -51,7 +64,8 @@ button {
     border: 2px solid white;
 }
 
-button:hover, button:active {
+button:hover, button:active,
+.custom-file-upload:hover, .custom-file-upload:active {
     background-color: #fdea94;
     color: #13559b;
 }
@@ -63,7 +77,10 @@ button:disabled {
 /* Button: End */
 
 /* Input: Start */
-input, select {
+
+
+input, 
+select {
     color: #001832;
     background-color: #FFD200;
     inline-size: 150px;
@@ -72,7 +89,8 @@ input, select {
     padding-inline: 10px;
 }
 
-input:disabled, select:disabled {
+input:disabled, 
+select:disabled {
     background-color: #aa8b00;
     color: #000c18;
 }
@@ -669,7 +687,7 @@ main#home > *:last-of-type {
 ##############################################
 ##############################################
 ######                                  ######
-######          Styist Page             ######
+######          Our-Team Page           ######
 ######                                  ######
 ##############################################
 ##############################################
@@ -1740,6 +1758,180 @@ main#not-found > p {
 ##############################################
 ##############################################
 ######                                  ######
+######    Retrieve Stylist Page         ######
+######                                  ######
+##############################################
+##############################################
+*/
+#retrieve-stylist {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+
+    margin-block: 30px;
+}
+
+#retrieve-stylist > p {
+    display: contents;
+}
+
+#retrieve-stylist > p a {
+    display: block;
+    text-decoration: none;
+    color: #001832;
+    background-color: #FFD200;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    block-size: 100px;
+    inline-size: 200px;
+    border-radius: 10px;
+    border: 3px solid white;
+
+    /* Center Text*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#retrieve-stylist > p a:hover,
+#retrieve-stylist > p a:focus {
+    background-color: #ffe56f;
+    color: #003e81;
+    border: 5px dashed white;
+}
+
+#retrieve-stylist > p a:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+/* Uses the same card style with Our-Team */
+.stylist-list .stylists-information li:focus, 
+.stylist-list .stylists-information li:hover {
+    border: 3px dashed white;
+    border-radius: 10px;
+    color: #003e81;
+    cursor: pointer;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
+######         Add Stylist Page         ######
+######                                  ######
+##############################################
+##############################################
+*/
+#new-stylist, .stylist-individual {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    margin-block: 40px; 
+
+    /* background-color: #6d0764;
+    border: 1px solid white; */
+}
+
+#new-stylist h1 {
+    text-align: center;
+}
+
+#new-stylist .stylist ul {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    /* background-color: #07616d;
+    border: 1px solid white; */
+}
+
+#new-stylist .stylist ul > .information {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    /* background-color: #076d35;
+    border: 1px solid white; */
+}
+
+#new-stylist .stylist ul > .information > li {
+    /* As Flex Parent */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    /* background-color: #526d07;
+    border: 1px solid white; */
+}
+
+#new-stylist .stylist ul > .information > li label {
+    min-inline-size: 100px;
+    text-align: right;
+    font-weight: bolder;
+
+    /* background-color: #6d4d07;
+    border: 1px solid white; */
+}
+
+#new-stylist .stylist ul > .information > li input {
+    text-align: center;
+}
+
+#new-stylist .stylist ul > .information li .custom-file-upload,
+#new-stylist .stylist ul > .information > li button {
+    inline-size: 130px;
+    font-weight: bolder;
+}
+
+#new-stylist .stylist ul > .information li .custom-file-upload:active,
+#new-stylist .stylist ul > .information > li button:active {
+    background-color: #9e8e46;
+    color: #012042;
+}
+
+#new-stylist .stylist ul > .image-preview {
+    /* As Flex Parent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin-inline: auto;
+    background-color: #FFD200;
+    border: 2px solid white;
+    border-radius: 10px;
+    inline-size: 270px;
+    block-size: 300px;
+}
+
+#new-stylist .stylist ul > .image-preview * {
+    color: #101d2b;
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+
+#new-stylist .stylist ul > .image-preview > img {
+    border-radius: inherit;
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+}
+
+/*
+##############################################
+##############################################
+######                                  ######
 ######          Media Queries           ######
 ######                                  ######
 ##############################################
@@ -1832,7 +2024,7 @@ main#not-found > p {
     ##############################################
     ##############################################
     ######                                  ######
-    ######          Styist Page             ######
+    ######          Our-Team Page           ######
     ######                                  ######
     ##############################################
     ##############################################
@@ -2051,7 +2243,7 @@ main#not-found > p {
     ##############################################
     ##############################################
     ######                                  ######
-    ######          Styist Page             ######
+    ######          Our-Team Page           ######
     ######                                  ######
     ##############################################
     ##############################################
@@ -2281,6 +2473,36 @@ main#not-found > p {
         margin-inline: 20px;
     }
 
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######         Add Stylist Page         ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #new-stylist {
+        margin-block: 80px;
+    }
+
+    #new-stylist .stylist ul > .information > li label {
+        min-inline-size: 150px;
+        font-size: 1.2rem;
+    }
+
+    #new-stylist .stylist ul > .information > li input {
+        min-inline-size: 250px;
+        font-size: 1.1rem;
+    }
+
+    #new-stylist .stylist ul > .information li .custom-file-upload,
+    #new-stylist .stylist ul > .information > li button {
+        inline-size: 150px;
+        block-size: 40px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+    }
 }
 
 /* ≥ 1024px — Tablet Horizontal (also small laptops) */
@@ -2386,11 +2608,15 @@ main#not-found > p {
     ##############################################
     ##############################################
     ######                                  ######
-    ######          Styist Page             ######
+    ######          Our-Team Page           ######
     ######                                  ######
     ##############################################
     ##############################################
     */
+    #all-stylist {
+        margin-inline: 70px;
+    }
+
     #all-stylist .stylists-information ul {
         /* As Flex Parent */
         gap: 30px;
@@ -2683,6 +2909,37 @@ main#not-found > p {
 
         inline-size: 800px;
     }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######         Add Stylist Page         ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #new-stylist {
+        margin-block: 80px;
+    }
+
+    #new-stylist .stylist ul > .information > li label {
+        min-inline-size: 150px;
+        font-size: 1.2rem;
+    }
+
+    #new-stylist .stylist ul > .information > li input {
+        min-inline-size: 250px;
+        font-size: 1.1rem;
+    }
+
+    #new-stylist .stylist ul > .information li .custom-file-upload,
+    #new-stylist .stylist ul > .information > li button {
+        inline-size: 150px;
+        block-size: 40px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+    }
 }
 
 /* ≥ 1920px — Desktop (Full HD and up) */
@@ -2723,6 +2980,19 @@ main#not-found > p {
     #service-list {
         margin-block: 60px;
         padding-inline: 200px;
+    }
+
+    /*
+    ##############################################
+    ##############################################
+    ######                                  ######
+    ######          Our-Team Page           ######
+    ######                                  ######
+    ##############################################
+    ##############################################
+    */
+    #all-stylist {
+        margin-inline: 200px;
     }
 
     /*

@@ -347,9 +347,6 @@ export default function RetrieveServiceInstanceComponent() {
                             <button type="submit" disabled={addFeedback.isLoading}>
                                 {addFeedback.isLoading ? "Submitting..." : "Submit"}
                             </button>
-                            <button type="submit" disabled={addFeedback.isLoading}>
-                                {addFeedback.isLoading ? "Submitting..." : "Submit"}
-                            </button>
                         </li>
                     </ul>
                 </form>

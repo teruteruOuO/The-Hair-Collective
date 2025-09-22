@@ -1,14 +1,24 @@
 import { useState, useEffect } from 'react';
-import api from '../../helpers/api'
+import api from '../../helpers/api';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export default function AllStylistComponent() {
+export default function StylistListComponent() {
     const [stylists, setStylists] = useState([]);
+    const navigate = useNavigate();
     const [pageFeedback, setPageFeedBack] = useState({
         isLoading: false,
         message: '',
         success: null
     });
+
+    // Enter each stylist's update page
+    function onEnter(id, e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        navigate(`/stylist/${id}`);
+    }
 
     useEffect(() => {   
         const controller = new AbortController(); 
@@ -74,7 +84,7 @@ export default function AllStylistComponent() {
     }, []);
 
     return (
-        <section id="all-stylist">
+        <section id="all-stylist" className='stylist-list'>
             {pageFeedback.isLoading && (
                 // Loading
                 <section className="loader">
@@ -91,7 +101,7 @@ export default function AllStylistComponent() {
             {!pageFeedback.isLoading && pageFeedback.success === true && stylists.length <= 0 && (
                 // No stylists
                 <section className="feedback">
-                    No Stylist
+                    There are no recorded stylists yet
                 </section>
             )}
 
@@ -100,7 +110,8 @@ export default function AllStylistComponent() {
                 <section className="stylists-information fade-in-from-left">
                     <ul>
                         {stylists.map((stylist, index) => (
-                            <li key={stylist.id}
+                            <li key={stylist.id} 
+                            onClick={(e) => onEnter(stylist.id, e)}
                             className={index % 2 == 0 ? 'fade-in-from-right' : 'fade-in-from-left'}>
                                 <img src={stylist.source} alt={`${stylist.first} ${stylist.last}`} />
                                 <p>{stylist.first}</p>

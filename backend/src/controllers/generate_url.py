@@ -58,8 +58,8 @@ def generate_signed_upload_url():
 # Generate a delete url for the image
 def generate_signed_delete_url():
     try:
-        jsonData = request.get_json()
-        image_location: str = jsonData.get("image_location")
+        parameters = request.args
+        image_location = parameters.get("image_location")
         admin_information: IDecodedTokenPayload = g.user
         image_delete_url: str
 

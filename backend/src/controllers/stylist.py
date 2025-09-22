@@ -195,6 +195,14 @@ def retrieve_stylist():
         current_app.logger.debug(f"Retrieving stylist #{stylist_id}'s information...")
         select_query = "SELECT STYLIST_ID, STYLIST_FIRST_NAME, STYLIST_LAST_NAME, STYLIST_PROFILE_IMG FROM STYLIST WHERE STYLIST_ID = %s;"
         result_query = DatabaseScript.execute_read_query(select_query, [stylist_id])
+
+        if len(result_query) == 0:
+            raise AppError(
+                message=f"Stylist #{stylist_id} does not exist",
+                frontend_message="This stylist does not exist",
+                status_code=400
+            )
+
         current_app.logger.debug(f"Successfully retrieved stylist #{stylist_id}'s information!")
 
         stylist = {
