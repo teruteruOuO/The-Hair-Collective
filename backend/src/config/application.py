@@ -34,3 +34,9 @@ class ApplicationConfig:
         "port": int(os.getenv("DB_PORT", 3306)),
         "connection_timeout": 15  # seconds
     }
+
+    # SSL certificate + key paths
+    SSL = {
+        "cert_path": os.getenv("SSL_CERT_PATH"),
+        "key_path": os.getenv("SSL_KEY_PATH"),
+    }

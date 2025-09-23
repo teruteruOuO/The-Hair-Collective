@@ -579,7 +579,7 @@ main#home > *:last-of-type {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 
 #service-description .featured ul li {

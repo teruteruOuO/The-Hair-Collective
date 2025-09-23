@@ -292,7 +292,7 @@ export default function RetrieveServiceInstanceComponent() {
             setTimeout(() => {
                 serviceInstanceSection.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "center",
+                    block: "start",
                 });
                 
                 // reset flag so it won’t scroll again
