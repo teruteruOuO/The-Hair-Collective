@@ -1,0 +1,98 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "The Hair Collective's S3. Only the user created here has access to this bucket."
+
+Resources:
+    # S3 bucket (private)
+    TheHairCollectiveS3Bucket:
+        Type: AWS::S3::Bucket
+        Properties:
+            BucketName: the-hair-collective-bucket
+            AccessControl: Private                                          # By default, everything is private                        
+            PublicAccessBlockConfiguration:                                 # Explicity blocks any kind of public access
+                BlockPublicAcls: true 
+                IgnorePublicAcls: true 
+                BlockPublicPolicy: true 
+                RestrictPublicBuckets: true 
+            CorsConfiguration:                                              # Defines CORS rules (Cross-Origin Resource Sharing).
+                CorsRules:
+                    -   AllowedOrigins: ["*"]                               # Any origin (*) can interact with this bucket.  
+                        AllowedMethods: ["GET", "HEAD", "PUT", "DELETE"]    # Allows GET, HEAD, PUT, DELETE.
+                        AllowedHeaders: ["*"]                               # Allows all request headers.
+                        ExposedHeaders: ["ETag", "x-amz-request-id"]        # Explicitly exposes certain response headers (ETag, x-amz-request-id) to the browser.
+                        MaxAge: 3000                                        # How long the browser caches the preflight response (3000 seconds).
+            Tags:
+                -   Key: Name
+                    Value: the-hair-collective-s3
+
+    # Bucket policy to enforce TLS; This is attached to the S3 Bucket above
+    TheHairCollectiveBucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties:
+            Bucket: !Ref TheHairCollectiveS3Bucket                          # Refers to the bucket created above.
+            PolicyDocument: 
+                Version: "2010-10-17"
+                Statement:
+                    -   Sid: EnforceTLS                                     
+                        Effect: Deny                                        # This policy denies all requests over plain HTTP.
+                        Principal: "*"                                      # applies to everyone.
+                        Action: "s3:*"                                      # all S3 actions
+                        Resource:                                           # the bucket itself and all objects inside it
+                            -   !Sub "${TheHairCollectiveS3Bucket.Arn}"
+                            -   !Sub "${TheHairCollectiveS3Bucket.Arn}/*"
+                        Condition:                                          # If aws:SecureTransport is false (meaning not using HTTPS/TLS), the request is denied.
+                            Bool:
+                                aws:SecureTransport: "false"
+
+    # The IAM User allowed to access this bucket
+    TheHairCollectiveUser:
+        Type: AWS::IAM::User
+        Properties:
+            UserName: thc-bucket-user
+            Tags:
+                -   Key: Name
+                    Value: thc-bucket-user
+
+    # The IAM policy that allows the user above to have complete access to the bucket; this will be attached to the user
+    TheHairCollectiveUserS3IAMPolicy:
+        Type: AWS::IAM::Policy
+        Properties:
+            PolicyName: TheHairCollectiveUserS3IAMPolicy
+            Users:
+                -   !Ref TheHairCollectiveUser
+            PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                    -   Effect: Allow                                               # Lets the user see the list of objects (but not download them yet).
+                        Action: 
+                            -   s3:ListBucket
+                        Resource: !Sub "arn:aws:s3:::the-hair-collective-bucket"
+                    -   Effect: Allow                                               # Lets the user download, upload, and delete files.
+                        Action:
+                            -   s3:GetObject
+                            -   s3:PutObject
+                            -   s3:DeleteObject
+                        Resource: !Sub "arn:aws:s3:::the-hair-collective-bucket/*"
+    
+    # Generates an access key pair for the user (Access Key and Secret Access Key)
+    TheHairCollectiveUserAccessKey:
+        Type: AWS::IAM::AccessKey
+        Properties:
+            UserName: !Ref TheHairCollectiveUser
+
+
+Outputs:
+    S3BucketName:
+        Description: "S3 Bucket Name"
+        Value: !Ref TheHairCollectiveS3Bucket
+    
+    IAMAccessKeyId:
+        Description: "Access Key of the user allowed see and perform jobs in this bucket"
+        Value: !Ref TheHairCollectiveUserAccessKey
+        Export:
+            Name: TheHairCollectiveUserAccessKeyId
+
+    IAMSecretAccessKey:
+        Description: "Secret Access Key of the user allowed to see and perform jobs in this bucket"
+        Value: !GetAtt TheHairCollectiveUserAccessKey.SecretAccessKey
+        Export:
+            Name: TheHairCollectiveUserSecretAccessKey
